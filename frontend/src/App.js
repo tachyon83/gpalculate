@@ -6,6 +6,7 @@ import { GpaPage } from "./pages/GpaPage/GpaPage";
 import { CoursePage } from "./pages/CoursePage/CoursePage";
 import { AccountPage } from "./pages/AccountPage/AccountPage";
 import { AboutPage } from "./pages/AboutPage/AboutPage";
+import "./App.css";
 
 function App() {
   return (

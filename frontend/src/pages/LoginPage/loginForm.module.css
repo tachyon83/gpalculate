@@ -1,0 +1,42 @@
+.labelInputContainer {
+  margin-bottom: 2em;
+}
+
+.label {
+  display: block;
+  clear: both;
+  color: #5e5e5e;
+  margin-bottom: 0.8em;
+}
+
+.input {
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  border-radius: 8px;
+  border: none;
+  padding: 0.7em;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.loginButton {
+  width: 100%;
+  border: none;
+  color: white;
+  padding: 0.7em;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 8px;
+  margin-top: 3em;
+  background: linear-gradient(60deg, #03bd93 0%, rgba(3, 155, 163, 1) 100%);
+  cursor: pointer;
+  outline: none;
+}
+
+.showAlert {
+  color: #db4437;
+}
+
+.noAlert {
+  display: none;
+}

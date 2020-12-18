@@ -1,0 +1,23 @@
+@font-face {
+  font-family: C-Book;
+  src: url("./assets/fonts/Circular Std Book.ttf");
+}
+
+@font-face {
+  font-family: C-Medium;
+  src: url("./assets/fonts/Circular Std Medium.ttf");
+}
+
+@font-face {
+  font-family: C-Bold;
+  src: url("./assets/fonts/Circular Std Bold.ttf");
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  min-height: 100%;
+  font-family: C-Book;
+}

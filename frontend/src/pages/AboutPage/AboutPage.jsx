@@ -1,5 +1,11 @@
 import React from "react";
+import { Nav } from "../../components/Nav/Nav";
 
 export const AboutPage = () => {
-  return <div>about page</div>;
+  return (
+    <>
+      <Nav />
+      about page
+    </>
+  );
 };

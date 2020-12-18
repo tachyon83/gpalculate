@@ -1,0 +1,43 @@
+.navContainer {
+  padding-bottom: 5em;
+  /* background-color: rgba(248, 250, 255, 1); */
+}
+
+.backgroundSvg {
+  width: 100%;
+  position: absolute;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  z-index: -1;
+}
+
+.navDiv {
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
+}
+
+.logoImage {
+  position: relative;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  top: 25px;
+  left: 20px;
+  max-height: 35px;
+}
+
+.nav {
+  margin: 1.7em;
+}
+
+.nav a {
+  padding: 1em;
+  color: white;
+  text-decoration: none;
+}
