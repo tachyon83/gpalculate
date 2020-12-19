@@ -41,7 +41,7 @@ const bottomDescription = [
   {
     title: "Better decision on courses",
     description:
-      "Decide which courses to take based on the checkbox tool. See how much impact the course can give.",
+      "Decide which courses to take based on the checkbox tool. See how much impact the course can have.",
   },
   {
     title: "Visually see records",

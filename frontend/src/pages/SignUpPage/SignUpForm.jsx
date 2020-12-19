@@ -11,6 +11,7 @@ export const SignUpForm = () => {
 
   const [showEmailError, setShowEmailError] = useState(false);
   const [showPasswordError, setShowPasswordError] = useState(false);
+  const [showNameError, setShowNameError] = useState(false);
 
   const onEmailChange = (e) => {
     setEmail(e.target.value);
@@ -56,6 +57,16 @@ export const SignUpForm = () => {
     setMoveSecondStage(false);
   };
 
+  const handleSecondStageSubmit = (e) => {
+    e.preventDefault();
+
+    if (name === "") {
+      setShowNameError(true);
+    } else {
+      setShowNameError(false);
+    }
+  };
+
   // First Stage
   if (!moveSecondStage) {
     return (
@@ -94,13 +105,13 @@ export const SignUpForm = () => {
             value="Next"
             className={`${styles.button} ${styles.firstButton}`}
           />
-        </form>{" "}
+        </form>
       </Fade>
     );
   } else {
     return (
       <Fade bottom distance="0.3em">
-        <form noValidate>
+        <form onSubmit={handleSecondStageSubmit} noValidate>
           <div className={styles.labelInputContainer}>
             <label className={styles.label}>Name:</label>
             <input
@@ -109,6 +120,9 @@ export const SignUpForm = () => {
               value={name}
               onChange={onNameChange}
             />
+            <p className={showNameError ? styles.showAlert : styles.noAlert}>
+              Invalid name.
+            </p>
           </div>
           <div className={styles.labelInputContainer}>
             <label className={styles.label}>Conversion Type:</label>
