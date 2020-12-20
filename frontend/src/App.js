@@ -6,6 +6,7 @@ import { GpaPage } from "./pages/GpaPage/GpaPage";
 import { CoursePage } from "./pages/CoursePage/CoursePage";
 import { AccountPage } from "./pages/AccountPage/AccountPage";
 import { AboutPage } from "./pages/AboutPage/AboutPage";
+import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
 import "./App.css";
 
 function App() {
@@ -15,10 +16,11 @@ function App() {
         <Route exact path="/" component={LandingPage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/signUp" component={SignUpPage} />
-        <Route path="/calculator" component={GpaPage} />
+        <Route path="/gpa" component={GpaPage} />
         <Route path="/course/:id" component={CoursePage} />
         <Route path="/account" component={AccountPage} />
         <Route path="/about" component={AboutPage} />
+        <Route component={NotFoundPage} />
       </Switch>
     </Router>
   );

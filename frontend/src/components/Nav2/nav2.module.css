@@ -1,0 +1,18 @@
+.nav {
+  width: 85%;
+  margin: auto;
+  text-align: right;
+  padding-top: 2em;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #929292;
+  transition: 0.3s;
+  margin-left: 3em;
+  font-size: 15px;
+}
+
+.nav a:hover {
+  color: #5e5e5e;
+}

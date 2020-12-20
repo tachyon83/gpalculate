@@ -1,0 +1,53 @@
+.sideBar {
+  flex: 1;
+  background: linear-gradient(120deg, #03bd93 0%, rgba(3, 155, 163, 1) 100%);
+  min-height: 50em;
+  min-width: 250px;
+}
+
+.logoImage {
+  position: relative;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  top: 25px;
+  left: 20px;
+  max-height: 35px;
+}
+
+.body {
+  width: 85%;
+  margin: auto;
+  margin-top: 6em;
+}
+
+.title {
+  color: white;
+}
+
+.conversionChart {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  display: flex;
+  font-size: 13px;
+  padding: 0.5em 0;
+}
+
+.conversionChartColumn {
+  display: flex;
+  flex: 1;
+}
+
+.conversionChartNumber {
+  margin-left: 1.2em;
+  margin-right: 0.8em;
+}
+
+.conversionChartLetter {
+  background: linear-gradient(60deg, #03bd93 0%, rgba(3, 155, 163, 1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
