@@ -22,7 +22,7 @@ axios.defaults.baseURL = host.server;
 
 function PrivateRoute({ children, ...rest }) {
   // delete!!!
-  const isUser = true;
+  const isUser = false;
 
   return (
     <Route

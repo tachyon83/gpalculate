@@ -64,7 +64,7 @@ export const LoginForm = () => {
             // setRedirectToReferrer(true);
           } else {
             if (res.data.code === 2) {
-              alert("No email / Wrong Password");
+              alert("Incorrect email or password");
             } else if (res.data.code === 3) {
               alert("Internal server error");
             }
@@ -78,7 +78,7 @@ export const LoginForm = () => {
   };
 
   if (redirectToReferrer === true) {
-    return <Redirect to={state?.from || "/"} />;
+    return <Redirect to={state?.from || "/gpa"} />;
   }
 
   return (
