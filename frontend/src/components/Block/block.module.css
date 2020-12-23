@@ -1,0 +1,40 @@
+.blockContainer {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  border-radius: 15px;
+  width: 85%;
+  margin: auto;
+  margin-bottom: 3em;
+}
+
+.titleContainer {
+  background-color: #f6f7fb;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  padding: 1em 2em;
+  cursor: pointer;
+  display: flex;
+}
+
+.title {
+  margin: 0;
+  /* font-family: C-Medium; */
+}
+
+.detailContainer {
+  padding: 1em 1.7em;
+}
+
+.line {
+  border: 1px solid #f6f7fa;
+}
+
+/* hide block */
+
+.hideBlock .titleContainer {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.hideBlock .detailContainer {
+  display: none;
+}

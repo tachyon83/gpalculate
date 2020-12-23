@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "./redirect.module.css";
+import styles from "./redirectButton.module.css";
 
-export const Redirect = ({ text, link, btnText }) => {
+export const RedirectButton = ({ text, link, btnText }) => {
   return (
     <div className={styles.redirect}>
       <p className={styles.redirectLink}>

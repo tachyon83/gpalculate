@@ -19,45 +19,57 @@ const conversion = [
 ];
 
 const ConversionChart = () => (
-  <div>
+  <div className={styles.converisonChart}>
     <p className={styles.title}>Conversion Chart</p>
-    <div className={styles.conversionChart}>
-      <div className={styles.conversionChartColumn}>
-        <div className={styles.conversionChartNumber}>
+    <div className={`${styles.whiteBody} ${styles.conversionBody}`}>
+      <div className={styles.conversionColumn}>
+        <div className={styles.conversionNumber}>
           {conversion.slice(0, 4).map((single) => (
             <p key={single.number}>{single.number}</p>
           ))}
         </div>
-        <div className={styles.conversionChartLetter}>
+        <div className={styles.gradientColor}>
           {conversion.slice(0, 4).map((single) => (
             <p key={single.letter}>{single.letter}</p>
           ))}
         </div>
       </div>
-      <div className={styles.conversionChartColumn}>
-        <div className={styles.conversionChartNumber}>
+      <div className={styles.conversionColumn}>
+        <div className={styles.conversionNumber}>
           {conversion.slice(4, 8).map((single) => (
             <p key={single.number}>{single.number}</p>
           ))}
         </div>
-        <div className={styles.conversionChartLetter}>
+        <div className={styles.gradientColor}>
           {conversion.slice(4, 8).map((single) => (
             <p key={single.letter}>{single.letter}</p>
           ))}
         </div>
       </div>
-      <div className={styles.conversionChartColumn}>
-        <div className={styles.conversionChartNumber}>
+      <div className={styles.conversionColumn}>
+        <div className={styles.conversionNumber}>
           {conversion.slice(8, 12).map((single) => (
             <p key={single.number}>{single.number}</p>
           ))}
         </div>
-        <div className={styles.conversionChartLetter}>
+        <div className={styles.gradientColor}>
           {conversion.slice(8, 12).map((single) => (
             <p key={single.letter}>{single.letter}</p>
           ))}
         </div>
       </div>
+    </div>
+  </div>
+);
+
+const Summary = () => (
+  <div>
+    <p className={styles.title}>Summary</p>
+    <div className={`${styles.whiteBody} ${styles.summaryBody}`}>
+      <p>
+        <span className={styles.gradientColor}>Semester 1: </span>3.63{" "}
+        <span className={styles.grey}>/ 4.3</span>
+      </p>
     </div>
   </div>
 );
@@ -70,6 +82,7 @@ export const SideBar = () => {
       </Link>
       <div className={styles.body}>
         <ConversionChart />
+        <Summary />
       </div>
     </div>
   );

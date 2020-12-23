@@ -27,27 +27,42 @@
   color: white;
 }
 
-.conversionChart {
+.converisonChart {
+  margin-bottom: 3em;
+}
+
+.whiteBody {
   background-color: white;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  display: flex;
   font-size: 13px;
-  padding: 0.5em 0;
+  padding: 0.5em;
 }
 
-.conversionChartColumn {
+.conversionBody {
+  display: flex;
+}
+
+.conversionColumn {
   display: flex;
   flex: 1;
 }
 
-.conversionChartNumber {
+.conversionNumber {
   margin-left: 1.2em;
   margin-right: 0.8em;
 }
 
-.conversionChartLetter {
+.gradientColor {
   background: linear-gradient(60deg, #03bd93 0%, rgba(3, 155, 163, 1) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.summaryBody {
+  padding-left: 1.5em;
+}
+
+.grey {
+  color: #929292;
 }

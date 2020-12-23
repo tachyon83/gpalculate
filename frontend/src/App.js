@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import { LandingPage } from "./pages/LandingPage/LandingPage";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
 import { SignUpPage } from "./pages/SignUpPage/SignUpPage";
@@ -7,22 +12,54 @@ import { CoursePage } from "./pages/CoursePage/CoursePage";
 import { AccountPage } from "./pages/AccountPage/AccountPage";
 import { AboutPage } from "./pages/AboutPage/AboutPage";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
+import store from "./redux/store";
+import { Provider } from "react-redux";
 import "./App.css";
+
+import axios from "axios";
+const host = require("./host");
+axios.defaults.baseURL = host.server;
+
+function PrivateRoute({ children, ...rest }) {
+  // delete!!!
+  const isUser = true;
+
+  return (
+    <Route
+      {...rest}
+      render={({ location }) => {
+        return isUser ? (
+          children
+        ) : (
+          <Redirect to={{ pathname: "/login", state: { from: location } }} />
+        );
+      }}
+    />
+  );
+}
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={LandingPage} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/signUp" component={SignUpPage} />
-        <Route path="/gpa" component={GpaPage} />
-        <Route path="/course/:id" component={CoursePage} />
-        <Route path="/account" component={AccountPage} />
-        <Route path="/about" component={AboutPage} />
-        <Route component={NotFoundPage} />
-      </Switch>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={LandingPage} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/signUp" component={SignUpPage} />
+          <PrivateRoute path="/gpa">
+            <GpaPage />
+          </PrivateRoute>
+          <PrivateRoute path="/course/:id">
+            <CoursePage />
+          </PrivateRoute>
+          <PrivateRoute path="/account">
+            <AccountPage />
+          </PrivateRoute>
+          <Route path="/about" component={AboutPage} />
+          <Route component={NotFoundPage} />
+        </Switch>
+      </Router>
+    </Provider>
   );
 }
 

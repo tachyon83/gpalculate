@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import Fade from "react-reveal/Fade";
 import styles from "./loginForm.module.css";
+import axios from "axios";
+import { Redirect, useLocation } from "react-router-dom";
 
 export const LoginForm = () => {
+  const [redirectToReferrer, setRedirectToReferrer] = useState(false);
+  const { state } = useLocation();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -44,9 +49,37 @@ export const LoginForm = () => {
 
     // Else, post request to /user/login
     if (loginPass) {
-      alert("True! Need to send post request");
+      const data = {
+        email,
+        password,
+      };
+
+      axios
+        .post("/user/login", data)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.result) {
+            console.log("로그인 성공");
+            localStorage.setItem("token", res.data.data.token);
+            // setRedirectToReferrer(true);
+          } else {
+            if (res.data.code === 2) {
+              alert("No email / Wrong Password");
+            } else if (res.data.code === 3) {
+              alert("Internal server error");
+            }
+          }
+        })
+        .catch((err) => {
+          setRedirectToReferrer(true);
+          console.log(err);
+        });
     }
   };
+
+  if (redirectToReferrer === true) {
+    return <Redirect to={state?.from || "/"} />;
+  }
 
   return (
     <Fade bottom distance="0.3em">

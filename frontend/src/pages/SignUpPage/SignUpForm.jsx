@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import Fade from "react-reveal/Fade";
 import styles from "./signUpForm.module.css";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 export const SignUpForm = () => {
+  const history = useHistory();
+
   const [moveSecondStage, setMoveSecondStage] = useState(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [conversionId, setConversionId] = useState(1);
 
   const [showEmailError, setShowEmailError] = useState(false);
   const [showPasswordError, setShowPasswordError] = useState(false);
@@ -23,6 +28,10 @@ export const SignUpForm = () => {
 
   const onNameChange = (e) => {
     setName(e.target.value);
+  };
+
+  const onConversionIdChange = (e) => {
+    setConversionId(parseInt(e.target.value));
   };
 
   const validateEmail = (email) => {
@@ -65,6 +74,32 @@ export const SignUpForm = () => {
     } else {
       setShowNameError(false);
     }
+
+    const data = {
+      name,
+      email,
+      password,
+      conversionId,
+    };
+
+    axios
+      .post("/user", data)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.result) {
+          console.log("회원가입 성공");
+          history.push("/login");
+        } else {
+          if (res.data.code === 1) {
+            alert("There's already an account for this email");
+          } else if (res.data.code === 3) {
+            alert("Internal server error");
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   // First Stage
@@ -116,6 +151,7 @@ export const SignUpForm = () => {
             <label className={styles.label}>Name:</label>
             <input
               type="text"
+              placeholder="Name"
               className={styles.input}
               value={name}
               onChange={onNameChange}
@@ -126,12 +162,11 @@ export const SignUpForm = () => {
           </div>
           <div className={styles.labelInputContainer}>
             <label className={styles.label}>Conversion Type:</label>
-            <input
-              type="text"
-              className={styles.input}
-              value={name}
-              onChange={onNameChange}
-            />
+            <select value={conversionId} onChange={onConversionIdChange}>
+              <option value={1}>1</option>
+              <option value={2}>2</option>
+              <option value={3}>3</option>
+            </select>
           </div>
           <div className={styles.secondButtonContainer}>
             <input

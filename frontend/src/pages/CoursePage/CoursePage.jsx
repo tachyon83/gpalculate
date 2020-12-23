@@ -1,5 +1,7 @@
 import React from "react";
 
-export const CoursePage = () => {
-  return <div>course page</div>;
+export const CoursePage = ({ match }) => {
+  const courseId = match.params.id;
+
+  return <div>course page for {courseId}</div>;
 };
