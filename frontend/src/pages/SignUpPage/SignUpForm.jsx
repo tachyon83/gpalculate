@@ -18,6 +18,8 @@ export const SignUpForm = () => {
   const [showPasswordError, setShowPasswordError] = useState(false);
   const [showNameError, setShowNameError] = useState(false);
 
+  const [signUpSubmitCode, setSignUpSubmitCode] = useState(0);
+
   const onEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -42,7 +44,9 @@ export const SignUpForm = () => {
   const handleFirstStageSubmit = (e) => {
     e.preventDefault();
     let firstStageComplete = true;
+    setSignUpSubmitCode(0);
 
+    // If email doesn't exist or email is invalid
     if (email === "" || !validateEmail(email)) {
       setShowEmailError(true);
       firstStageComplete = false;
@@ -50,6 +54,7 @@ export const SignUpForm = () => {
       setShowEmailError(false);
     }
 
+    // If password doesn't exist
     if (password === "") {
       setShowPasswordError(true);
       firstStageComplete = false;
@@ -68,40 +73,44 @@ export const SignUpForm = () => {
 
   const handleSecondStageSubmit = (e) => {
     e.preventDefault();
+    let secondStageComplete = true;
 
     if (name === "") {
       setShowNameError(true);
+      secondStageComplete = false;
     } else {
       setShowNameError(false);
     }
 
-    const data = {
-      name,
-      email,
-      password,
-      conversionId,
-    };
+    if (secondStageComplete) {
+      const data = {
+        name,
+        email,
+        password,
+        conversionId,
+      };
 
-    axios
-      .post("/user", data)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data.result) {
-          console.log("회원가입 성공");
-          history.push("/login");
-        } else {
-          if (res.data.code === 1) {
-            alert("There's already an account for this email");
-          } else if (res.data.code === 3) {
-            alert("Internal server error");
+      axios
+        .post("/user", data)
+        .then((res) => {
+          console.log(res.data);
+          setSignUpSubmitCode(res.data.code);
+          if (res.data.result) {
+            history.push("/login");
           }
-        }
-      })
-      .catch((err) => {
-        console.log("error");
-        console.log(err);
-      });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
+
+  let signUpSubmitFailure;
+  if (signUpSubmitCode === 1) {
+    signUpSubmitFailure = "There's already an account for this email.";
+  } else if (signUpSubmitCode === 3) {
+    signUpSubmitFailure = "Internal server error.";
+  }
 
   // First Stage
   if (!moveSecondStage) {
@@ -169,6 +178,7 @@ export const SignUpForm = () => {
               <option value={3}>3</option>
             </select>
           </div>
+          <p className={styles.showAlert}>{signUpSubmitFailure}</p>
           <div className={styles.secondButtonContainer}>
             <input
               type="button"

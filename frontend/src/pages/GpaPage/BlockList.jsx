@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Block } from "../../components/Block/Block";
+import axios from "axios";
 
 const semesters = [
   {
@@ -41,11 +42,40 @@ const semesters = [
 ];
 
 export const BlockList = () => {
-  return (
-    <div>
-      {semesters.map((semester, i) => (
-        <Block semester={semester} key={`semester-${i}`} />
-      ))}
-    </div>
-  );
+  const [semesterInfo, setSemesterInfo] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get("/semester")
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.result) {
+          /////////////////////////////////////////////////
+          ///////////////////  UNCOMMENT!!!  ///////////////
+          /////////////////////////////////////////////////
+          // setSemesterInfo(res.data.data)
+        } else {
+          alert("Failed to load");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        /////////////////////////////////////////////////
+        ///////////////////  DELETE!!!  /////////////////
+        /////////////////////////////////////////////////
+        setSemesterInfo(semesters);
+      });
+  }, []);
+
+  if (semesterInfo) {
+    return (
+      <div>
+        {semesters.map((semester, i) => (
+          <Block semester={semester} key={`semester-${i}`} />
+        ))}
+      </div>
+    );
+  } else {
+    return <div>Loading...</div>;
+  }
 };

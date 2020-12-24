@@ -40,4 +40,16 @@
   padding: 1em;
   color: white;
   text-decoration: none;
+  transition: 0.3s;
+}
+
+.nav button {
+  color: white;
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-size: 16px;
+  transition: 0.3s;
+  cursor: pointer;
+  outline: none;
 }

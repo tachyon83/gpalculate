@@ -1,10 +1,17 @@
-import { USER_LOGIN } from "./types";
+import { LOGOUT, SET_CONVERSION } from "./types";
 
-export const loginUser = () => {
+export const logout = () => {
   return {
-    type: USER_LOGIN,
+    type: LOGOUT,
+  };
+};
+
+export const setConversion = (conversionArr, conversion) => {
+  return {
+    type: SET_CONVERSION,
     payload: {
-      //
+      conversionArr,
+      conversion,
     },
   };
 };

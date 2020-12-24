@@ -17,3 +17,18 @@
 .nav a:hover {
   color: #5e5e5e;
 }
+
+.nav button {
+  text-decoration: none;
+  color: #929292;
+  transition: 0.3s;
+  margin-left: 3em;
+  font-size: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav button:hover {
+  color: #5e5e5e;
+}

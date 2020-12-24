@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Nav } from "../../components/Nav/Nav";
+import Nav from "../../components/Nav/Nav";
 import { Button1 } from "../../components/Button1/Button1";
 import { Description } from "./Description";
 import { Footer } from "../../components/Footer/Footer";

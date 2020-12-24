@@ -14,6 +14,7 @@ import { AboutPage } from "./pages/AboutPage/AboutPage";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
 import store from "./redux/store";
 import { Provider } from "react-redux";
+import { checkAuth } from "./checkAuth";
 import "./App.css";
 
 import axios from "axios";
@@ -21,14 +22,11 @@ const host = require("./host");
 axios.defaults.baseURL = host.server;
 
 function PrivateRoute({ children, ...rest }) {
-  // delete!!!
-  const isUser = false;
-
   return (
     <Route
       {...rest}
       render={({ location }) => {
-        return isUser ? (
+        return checkAuth() ? (
           children
         ) : (
           <Redirect to={{ pathname: "/login", state: { from: location } }} />

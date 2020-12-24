@@ -1,16 +1,22 @@
-import { USER_LOGIN } from "./types.js";
+import { LOGOUT, SET_CONVERSION } from "./types.js";
 
 const initialState = {
-  currentUser: {},
+  conversionArr: [],
+  conversion: {},
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case USER_LOGIN:
+    case LOGOUT:
+      return initialState;
+
+    case SET_CONVERSION:
       return {
         ...state,
-        //
+        conversionArr: action.payload.conversionArr,
+        conversion: action.payload.conversion,
       };
+
     default:
       return state;
   }

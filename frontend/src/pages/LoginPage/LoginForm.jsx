@@ -3,8 +3,10 @@ import Fade from "react-reveal/Fade";
 import styles from "./loginForm.module.css";
 import axios from "axios";
 import { Redirect, useLocation } from "react-router-dom";
+import { connect } from "react-redux";
+import { setConversion } from "../../redux";
 
-export const LoginForm = () => {
+const LoginForm = ({ setConversion }) => {
   const [redirectToReferrer, setRedirectToReferrer] = useState(false);
   const { state } = useLocation();
 
@@ -13,6 +15,8 @@ export const LoginForm = () => {
 
   const [showEmailError, setShowEmailError] = useState(false);
   const [showPasswordError, setShowPasswordError] = useState(false);
+
+  const [loginSubmitCode, setLoginSubmitCode] = useState(0);
 
   const onEmailChange = (e) => {
     setEmail(e.target.value);
@@ -30,6 +34,7 @@ export const LoginForm = () => {
   const handleFormLogin = (e) => {
     e.preventDefault();
     let loginPass = true;
+    setLoginSubmitCode(0);
 
     // If email doesn't exist OR email is invalid
     if (email === "" || !validateEmail(email)) {
@@ -54,24 +59,57 @@ export const LoginForm = () => {
         password,
       };
 
+      /////////////////////////////////////////////////
+      ///////////////////  ERASE!!!  //////////////////
+      /////////////////////////////////////////////////
+      const conversionArr = [
+        { letter: "A+", number: 4.3 },
+        { letter: "A", number: 4.0 },
+        { letter: "A-", number: 3.7 },
+        { letter: "B+", number: 3.3 },
+        { letter: "B", number: 3.0 },
+        { letter: "B-", number: 2.7 },
+        { letter: "C+", number: 2.3 },
+        { letter: "C", number: 2.0 },
+        { letter: "C-", number: 1.7 },
+        { letter: "D+", number: 1.3 },
+        { letter: "D", number: 1.0 },
+        { letter: "D-", number: 0.7 },
+        { letter: "F", number: 0 },
+      ];
+
+      const conversion = {
+        "A+": 4.3,
+        A: 4.0,
+        "A-": 3.7,
+        "B+": 3.3,
+        B: 3.0,
+        "B-": 2.7,
+        "C+": 2.3,
+        C: 2.0,
+        "C-": 1.7,
+        "D+": 1.3,
+        D: 1.0,
+        "D-": 0.7,
+        F: 0,
+      };
+
       axios
         .post("/user/login", data)
         .then((res) => {
-          console.log(res.data);
+          setLoginSubmitCode(res.data.code);
           if (res.data.result) {
-            console.log("로그인 성공");
             localStorage.setItem("token", res.data.data.token);
-            // setRedirectToReferrer(true);
-          } else {
-            if (res.data.code === 2) {
-              alert("Incorrect email or password");
-            } else if (res.data.code === 3) {
-              alert("Internal server error");
-            }
+
+            /////////////////////////////////////////////////
+            ///////////////////  CHANGE!!!  //////////////////
+            /////////////////////////////////////////////////
+            setConversion(conversionArr, conversion);
+            // setConversion(res.data.data.conversionArr, res.data.data.conversion);
+            setRedirectToReferrer(true);
           }
         })
         .catch((err) => {
-          setRedirectToReferrer(true);
           console.log(err);
         });
     }
@@ -79,6 +117,13 @@ export const LoginForm = () => {
 
   if (redirectToReferrer === true) {
     return <Redirect to={state?.from || "/gpa"} />;
+  }
+
+  let loginSubmitFailure;
+  if (loginSubmitCode === 2) {
+    loginSubmitFailure = "Incorrect email or password.";
+  } else if (loginSubmitCode === 3) {
+    loginSubmitFailure = "Internal server error.";
   }
 
   return (
@@ -110,8 +155,18 @@ export const LoginForm = () => {
             Invalid password.
           </p>
         </div>
+        <p className={styles.showAlert}>{loginSubmitFailure}</p>
         <input type="submit" value="Login" className={styles.loginButton} />
       </form>
     </Fade>
   );
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setConversion: (conversionArr, conversion) =>
+      dispatch(setConversion(conversionArr, conversion)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(LoginForm);

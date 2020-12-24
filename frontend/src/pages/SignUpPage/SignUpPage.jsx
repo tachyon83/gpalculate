@@ -1,5 +1,5 @@
 import React from "react";
-import { Nav } from "../../components/Nav/Nav";
+import Nav from "../../components/Nav/Nav";
 import { Heading } from "../../components/Heading/Heading";
 import { SignUpForm } from "./SignUpForm";
 import { RedirectButton } from "../../components/RedirectButton/RedirectButton";
