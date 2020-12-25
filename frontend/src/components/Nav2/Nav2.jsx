@@ -9,8 +9,8 @@ const Nav2 = ({ logout }) => {
 
   const handleLogout = () => {
     localStorage.clear();
-    logout();
     history.push("/");
+    logout();
   };
 
   return (

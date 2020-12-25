@@ -1,35 +1,39 @@
 import React, { useState } from "react";
 import CourseLine from "../CourseLine/CourseLine";
+import { Button2 } from "../Button2/Button2";
 import styles from "./block.module.css";
 import { connect } from "react-redux";
+import { numToSeason } from "../../global";
 
-const Block = ({ semester, conversion, coursesRedux }) => {
-  const [shown, setShown] = useState(false);
-
-  const numToSeason = {
-    1: "Winter",
-    2: "Spring",
-    3: "Summer",
-    4: "Fall",
-  };
+const Block = ({ conversionArr, semester, conversion, coursesRedux }) => {
+  const [shown, setShown] = useState(true);
 
   const toggleSemester = () => {
     setShown((prevShown) => !prevShown);
   };
 
-  // Calculate total units, total grade, semester gpa
+  const maximumGpa = conversionArr[0].number;
+
   let totalUnits = 0;
   let totalGrade = 0;
-  coursesRedux.map((course) => {
+  for (let course of coursesRedux) {
     const { include, units, grade } = course;
     if (include === 1) {
       totalUnits += units;
       totalGrade += units * conversion[grade];
     }
-  });
+  }
   const semesterGpa = totalGrade / totalUnits || 0;
 
   const { courses, id, season, year } = semester;
+
+  const handleNewCourse = () => {
+    alert("handleNewCourse");
+  };
+
+  const handleDeleteSemester = () => {
+    alert("handleDeleteSemester");
+  };
 
   return (
     <div
@@ -42,7 +46,7 @@ const Block = ({ semester, conversion, coursesRedux }) => {
         <p className={`${styles.gpa} ${shown ? styles.hide : ""}`}>
           <span className={styles.gpaText}>Cumulative GPA: </span>
           {semesterGpa.toFixed(2)}{" "}
-          <span className={styles.gpaNumber}>/ 4.3</span>
+          <span className={styles.gpaNumber}>/ {maximumGpa}</span>
         </p>
       </div>
       <div className={styles.detailContainer}>
@@ -60,8 +64,20 @@ const Block = ({ semester, conversion, coursesRedux }) => {
           <p className={styles.gpa}>
             <span className={styles.gpaText}>Cumulative GPA: </span>
             {semesterGpa.toFixed(2)}{" "}
-            <span className={styles.gpaNumber}>/ 4.3</span>
+            <span className={styles.gpaNumber}>/ {maximumGpa}</span>
           </p>
+          <div>
+            <Button2
+              text="New Course"
+              onClick={handleNewCourse}
+              cn={styles.newCourseButton}
+            />
+            <Button2
+              text="Delete Semester"
+              onClick={handleDeleteSemester}
+              cn={styles.deleteSemesterButton}
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -69,9 +85,13 @@ const Block = ({ semester, conversion, coursesRedux }) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const coursesRedux = state.semesters[ownProps.orderId].courses;
+  let coursesRedux;
+  if (state.conversionArr.length !== 0) {
+    coursesRedux = state.semesters[ownProps.orderId].courses;
+  }
 
   return {
+    conversionArr: state.conversionArr,
     conversion: state.conversion,
     coursesRedux,
   };

@@ -69,11 +69,16 @@
 }
 
 .bottom {
-  margin-top: 3em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+  display: flex;
+  justify-content: space-between;
 }
 
 .gpa {
   font-size: 14px;
+  margin: 0;
+  /* padding: 0.7em; */
 }
 
 .gpaText {
@@ -84,6 +89,15 @@
 
 .gpaNumber {
   color: #d5d5d5;
+}
+
+.bottom button {
+  width: 140px;
+  padding: 0.7em 1.5em;
+}
+
+.newCourseButton {
+  margin-right: 3em;
 }
 
 .hide {
