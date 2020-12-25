@@ -4,49 +4,33 @@ import logo from "../../assets/logo-v2.png";
 import styles from "./sideBar.module.css";
 import { connect } from "react-redux";
 
-const ConversionChart = ({ conversionArr }) => (
-  <div className={styles.converisonChart}>
-    <p className={styles.title}>Conversion Chart</p>
-    <div className={`${styles.whiteBody} ${styles.conversionBody}`}>
-      <div className={styles.conversionColumn}>
-        <div className={styles.conversionNumber}>
-          {conversionArr.slice(0, 4).map((single) => (
-            <p key={single.number}>{single.number}</p>
-          ))}
-        </div>
-        <div className={styles.gradientColor}>
-          {conversionArr.slice(0, 4).map((single) => (
-            <p key={single.letter}>{single.letter}</p>
-          ))}
-        </div>
+const ConversionChart = ({ conversionArr }) => {
+  const Column = ({ startIndex, endIndex }) => (
+    <div className={styles.conversionColumn}>
+      <div className={styles.conversionNumber}>
+        {conversionArr.slice(startIndex, endIndex).map((single) => (
+          <p key={single.number}>{single.number.toFixed(1)}</p>
+        ))}
       </div>
-      <div className={styles.conversionColumn}>
-        <div className={styles.conversionNumber}>
-          {conversionArr.slice(4, 8).map((single) => (
-            <p key={single.number}>{single.number}</p>
-          ))}
-        </div>
-        <div className={styles.gradientColor}>
-          {conversionArr.slice(4, 8).map((single) => (
-            <p key={single.letter}>{single.letter}</p>
-          ))}
-        </div>
-      </div>
-      <div className={styles.conversionColumn}>
-        <div className={styles.conversionNumber}>
-          {conversionArr.slice(8, 12).map((single) => (
-            <p key={single.number}>{single.number}</p>
-          ))}
-        </div>
-        <div className={styles.gradientColor}>
-          {conversionArr.slice(8, 12).map((single) => (
-            <p key={single.letter}>{single.letter}</p>
-          ))}
-        </div>
+      <div className={styles.gradientColor}>
+        {conversionArr.slice(startIndex, endIndex).map((single) => (
+          <p key={single.letter}>{single.letter}</p>
+        ))}
       </div>
     </div>
-  </div>
-);
+  );
+
+  return (
+    <div className={styles.converisonChart}>
+      <p className={styles.title}>Conversion Chart</p>
+      <div className={`${styles.whiteBody} ${styles.conversionBody}`}>
+        <Column startIndex={0} endIndex={4} />
+        <Column startIndex={4} endIndex={8} />
+        <Column startIndex={8} endIndex={12} />
+      </div>
+    </div>
+  );
+};
 
 const Summary = () => (
   <div>

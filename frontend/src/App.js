@@ -14,6 +14,8 @@ import { AboutPage } from "./pages/AboutPage/AboutPage";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
 import store from "./redux/store";
 import { Provider } from "react-redux";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 import { checkAuth } from "./checkAuth";
 import "./App.css";
 
@@ -36,27 +38,31 @@ function PrivateRoute({ children, ...rest }) {
   );
 }
 
+const persistor = persistStore(store);
+
 function App() {
   return (
     <Provider store={store}>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={LandingPage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/signUp" component={SignUpPage} />
-          <PrivateRoute path="/gpa">
-            <GpaPage />
-          </PrivateRoute>
-          <PrivateRoute path="/course/:id">
-            <CoursePage />
-          </PrivateRoute>
-          <PrivateRoute path="/account">
-            <AccountPage />
-          </PrivateRoute>
-          <Route path="/about" component={AboutPage} />
-          <Route component={NotFoundPage} />
-        </Switch>
-      </Router>
+      <PersistGate loading={null} persistor={persistor}>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={LandingPage} />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/signUp" component={SignUpPage} />
+            <PrivateRoute path="/gpa">
+              <GpaPage />
+            </PrivateRoute>
+            <PrivateRoute path="/course/:id">
+              <CoursePage />
+            </PrivateRoute>
+            <PrivateRoute path="/account">
+              <AccountPage />
+            </PrivateRoute>
+            <Route path="/about" component={AboutPage} />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </Router>
+      </PersistGate>
     </Provider>
   );
 }

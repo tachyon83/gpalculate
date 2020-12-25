@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Block } from "../../components/Block/Block";
+import Block from "../../components/Block/Block";
 import axios from "axios";
+import { connect } from "react-redux";
+import { setSemesters } from "../../redux";
 
 const semesters = [
   {
@@ -11,11 +13,11 @@ const semesters = [
       {
         name: "Data Structures",
         units: 4,
-        grade: "A+",
-        include: true,
+        grade: "A-",
+        include: 1,
         courseId: 1,
       },
-      { name: "Korean", units: 4, grade: "B", include: false, courseId: 2 },
+      { name: "Korean", units: 4, grade: "B+", include: 0, courseId: 2 },
     ],
   },
   {
@@ -27,51 +29,53 @@ const semesters = [
         name: "Mathematics",
         units: 4,
         grade: "A+",
-        include: false,
+        include: 0,
         courseId: 3,
       },
       {
         name: "Design Studio",
         units: 2,
         grade: "B",
-        include: true,
+        include: 1,
         courseId: 4,
       },
     ],
   },
 ];
 
-export const BlockList = () => {
+const BlockList = ({ setSemesters }) => {
   const [semesterInfo, setSemesterInfo] = useState(null);
 
   useEffect(() => {
-    axios
-      .get("/semester")
-      .then((res) => {
-        console.log(res.data);
-        if (res.data.result) {
-          /////////////////////////////////////////////////
-          ///////////////////  UNCOMMENT!!!  ///////////////
-          /////////////////////////////////////////////////
-          // setSemesterInfo(res.data.data)
-        } else {
-          alert("Failed to load");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        /////////////////////////////////////////////////
-        ///////////////////  DELETE!!!  /////////////////
-        /////////////////////////////////////////////////
-        setSemesterInfo(semesters);
-      });
+    console.log("Block list use effect");
+    // axios
+    //   .get("/semester")
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     if (res.data.result) {
+    //       /////////////////////////////////////////////////
+    //       ///////////////////  UNCOMMENT!!!  ///////////////
+    //       /////////////////////////////////////////////////
+    //       // setSemesterInfo(res.data.data)
+    //     } else {
+    //       alert("Failed to load");
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    /////////////////////////////////////////////////
+    ///////////////////  DELETE!!!  /////////////////
+    /////////////////////////////////////////////////
+    setSemesterInfo(semesters);
+    setSemesters(semesters);
   }, []);
 
   if (semesterInfo) {
     return (
       <div>
         {semesters.map((semester, i) => (
-          <Block semester={semester} key={`semester-${i}`} />
+          <Block semester={semester} key={`semester-${i}`} orderId={i} />
         ))}
       </div>
     );
@@ -79,3 +83,11 @@ export const BlockList = () => {
     return <div>Loading...</div>;
   }
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setSemesters: (semesters) => dispatch(setSemesters(semesters)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(BlockList);
