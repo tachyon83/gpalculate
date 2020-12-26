@@ -1,0 +1,50 @@
+.button1 {
+  font-size: 16px;
+  border-radius: 20px;
+  padding: 0.6em 2.4em;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-family: C-Book;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-image: linear-gradient(
+    to right,
+    #03bd93 0%,
+    rgba(3, 155, 163, 1) 100%
+  );
+  transition: transform 0.2s;
+  outline: none;
+}
+
+.button2 {
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #929292;
+  cursor: pointer;
+  background-color: #f6f7fb;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 10px;
+  text-align: center;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.button2:hover {
+  color: #5e5e5e;
+}
+
+.button3 {
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 10px;
+  /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
+  text-align: center;
+  text-decoration: none;
+  transition: 0.3s;
+  background: linear-gradient(60deg, #03bd93 0%, rgba(3, 155, 163, 1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 0.5em 1em;
+  font-size: 15px;
+}

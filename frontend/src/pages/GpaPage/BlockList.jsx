@@ -47,7 +47,6 @@ const BlockList = ({ setSemesters }) => {
   const [semesterInfo, setSemesterInfo] = useState(null);
 
   useEffect(() => {
-    console.log("Block list use effect");
     // axios
     //   .get("/semester")
     //   .then((res) => {

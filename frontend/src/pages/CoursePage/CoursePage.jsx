@@ -1,9 +1,13 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import SideBar from "../../components/SideBar/SideBar";
+import { CoursePageBody } from "./CoursePageBody";
+import styles from "./coursePage.module.css";
 
 export const CoursePage = () => {
-  let params = useParams();
-  const courseId = params.id;
-
-  return <div>course page for {courseId}</div>;
+  return (
+    <div className={styles.body}>
+      <SideBar />
+      <CoursePageBody />
+    </div>
+  );
 };

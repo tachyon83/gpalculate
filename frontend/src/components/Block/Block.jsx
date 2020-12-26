@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CourseLine from "../CourseLine/CourseLine";
-import { Button2 } from "../Button2/Button2";
+import { Button2 } from "../Buttons/Buttons";
 import styles from "./block.module.css";
 import { connect } from "react-redux";
 import { numToSeason } from "../../global";

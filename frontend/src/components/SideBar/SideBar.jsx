@@ -60,8 +60,8 @@ const Summary = ({ conversionArr, conversion, semesters }) => {
     <div>
       <p className={styles.title}>Summary</p>
       <div className={`${styles.whiteBody} ${styles.summaryBody}`}>
-        {gpaArr.map((semester) => (
-          <p>
+        {gpaArr.map((semester, i) => (
+          <p key={i}>
             <span className={styles.gradientColor}>
               {semester.year} {numToSeason[semester.season]}:{" "}
             </span>

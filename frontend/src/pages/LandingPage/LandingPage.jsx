@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Nav from "../../components/Nav/Nav";
-import { Button1 } from "../../components/Button1/Button1";
+import { Button1 } from "../../components/Buttons/Buttons";
 import { Description } from "./Description";
 import { Footer } from "../../components/Footer/Footer";
 import Fade from "react-reveal/Fade";

@@ -1,0 +1,50 @@
+.container {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  border-radius: 15px;
+  padding: 1em;
+  margin-bottom: 4em;
+}
+
+.container p,
+.container label {
+  font-size: 14px;
+  margin: 0.5em;
+}
+
+.container input,
+.container select {
+  padding-left: 1em;
+}
+
+.row {
+  display: flex;
+}
+
+.row .rowTitle {
+  background: linear-gradient(60deg, #03bd93 0%, rgba(3, 155, 163, 1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  flex: 1;
+}
+
+.row .rowData {
+  flex: 4;
+}
+
+.line {
+  border: 1px solid #f6f7fa;
+}
+
+.buttonContainer {
+  margin-top: 1em;
+  text-align: right;
+}
+
+.button {
+  width: 100px;
+  padding: 0.5em 1.5em;
+}
+
+.cancelButton {
+  margin-right: 3em;
+}
