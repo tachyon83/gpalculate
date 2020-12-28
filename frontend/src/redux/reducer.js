@@ -41,7 +41,7 @@ const reducer = (state = initialState, action) => {
               ...semester,
               courses: semester.courses.map((course) => {
                 // 찾고있는 course
-                if (course.courseId === courseId) {
+                if (course.id === courseId) {
                   return {
                     ...course,
                     include,

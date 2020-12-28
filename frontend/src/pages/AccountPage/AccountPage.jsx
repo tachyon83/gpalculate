@@ -12,7 +12,6 @@ export const AccountPage = () => {
   const [userUpdate, setUserUpdate] = useState(false);
 
   const fetchUserData = () => {
-    console.log("Fetching user data");
     const jwtToken = localStorage.getItem("token");
     const authAxios = axios.create({
       headers: {
@@ -22,7 +21,6 @@ export const AccountPage = () => {
 
     authAxios.get("/user").then((res) => {
       const { result, code, data } = res.data;
-      console.log(res.data);
       if (result) {
         setUserData(data);
       } else {

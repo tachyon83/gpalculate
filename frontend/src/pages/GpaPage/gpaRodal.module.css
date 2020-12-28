@@ -30,14 +30,16 @@
 }
 
 .noAlert {
-  /* display: none; */
-  color: white;
-  font-size: 13px;
+  display: none;
 }
 
 .buttonContainer {
   text-align: right;
-  margin-top: 3em;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-bottom: 2em;
+  margin-right: 2em;
 }
 
 .buttonContainer button {

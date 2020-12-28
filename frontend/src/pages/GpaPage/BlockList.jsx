@@ -4,74 +4,26 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { setSemesters } from "../../redux";
 
-const semesters = [
-  {
-    id: 1,
-    year: 2020,
-    season: 1,
-    courses: [
-      {
-        name: "Data Structures",
-        units: 4,
-        grade: "A-",
-        include: 1,
-        courseId: 1,
-      },
-      { name: "Korean", units: 4, grade: "B+", include: 0, courseId: 2 },
-    ],
-  },
-  {
-    id: 2,
-    year: 2020,
-    season: 2,
-    courses: [
-      {
-        name: "Mathematics",
-        units: 4,
-        grade: "A+",
-        include: 0,
-        courseId: 3,
-      },
-      {
-        name: "Design Studio",
-        units: 2,
-        grade: "B",
-        include: 1,
-        courseId: 4,
-      },
-    ],
-  },
-];
-
-const BlockList = ({ setSemesters }) => {
+const BlockList = ({ setSemesters, userUpdate, setUserUpdate }) => {
   const [semesterInfo, setSemesterInfo] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const fetchSemesterData = () => {
     const jwtToken = localStorage.getItem("token");
-
-    /////////////////////////////////////////////////
-    ///////////////////   고치기    ///////////////////
-    /////////////////////////////////////////////////
     const authAxios = axios.create({
       headers: {
         "x-access-token": jwtToken,
       },
     });
 
-    axios
-      .get("/semester", {
-        headers: {
-          "x-access-token": jwtToken,
-        },
-      })
+    authAxios
+      .get("/semester")
       .then((res) => {
-        console.log(res.data);
         const { result, code, data } = res.data;
         if (result) {
-          /////////////////////////////////////////////////
-          ///////////////////  UNCOMMENT!!!  ///////////////
-          /////////////////////////////////////////////////
-          // setSemesterInfo(data)
+          setSemesterInfo(data);
+          setSemesters(data);
+          setLoading(false);
         } else {
           if (code === 3) {
             alert("Internal Server error");
@@ -83,24 +35,35 @@ const BlockList = ({ setSemesters }) => {
       .catch((err) => {
         console.log(err);
       });
+  };
 
-    /////////////////////////////////////////////////
-    ///////////////////  DELETE!!!  /////////////////
-    /////////////////////////////////////////////////
-    setSemesterInfo(semesters);
-    setSemesters(semesters);
+  useEffect(() => {
+    fetchSemesterData();
   }, []);
 
-  if (semesterInfo) {
+  useEffect(() => {
+    if (userUpdate) {
+      setLoading(true);
+      fetchSemesterData();
+    }
+    setUserUpdate(false);
+  }, [userUpdate]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  } else {
     return (
       <div>
-        {semesters.map((semester, i) => (
-          <Block semester={semester} key={`semester-${i}`} orderId={i} />
+        {semesterInfo.map((semester, i) => (
+          <Block
+            semester={semester}
+            key={`semester-${i}`}
+            orderId={i}
+            setUserUpdate={setUserUpdate}
+          />
         ))}
       </div>
     );
-  } else {
-    return <div>Loading...</div>;
   }
 };
 

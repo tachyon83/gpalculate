@@ -8,25 +8,6 @@ import { numToSeason } from "../../global";
 import styles from "./coursePageBody.module.css";
 import axios from "axios";
 
-const data = {
-  year: 2020,
-  season: 3,
-  name: "Math",
-  units: 3,
-  grade: "B",
-  assessment: [
-    {
-      id: 1,
-      name: "Assignment 1",
-      receivedScore: 80,
-      totalScore: 100,
-      weight: 30,
-    },
-    { id: 2, name: "Test 2", receivedScore: 20, totalScore: 25, weight: 30 },
-    { id: 3, name: "Essay 3", receivedScore: 29, totalScore: 30, weight: 40 },
-  ],
-};
-
 export const CoursePageBody = () => {
   const history = useHistory();
   const params = useParams();
@@ -36,11 +17,6 @@ export const CoursePageBody = () => {
 
   useEffect(() => {
     const jwtToken = localStorage.getItem("token");
-
-    /////////////////////////////////////////////////
-    ///////////////////   고치기    ///////////////////
-    /////////////////////////////////////////////////
-
     const authAxios = axios.create({
       headers: {
         "x-access-token": jwtToken,
@@ -48,9 +24,17 @@ export const CoursePageBody = () => {
     });
 
     authAxios.get(`/course/${courseId}`).then((res) => {
-      console.log(res.data);
+      const { result, code, data } = res;
+      if (result) {
+        setCourseInformation(data);
+      } else {
+        if (code === 3) {
+          alert("Internal Server Error");
+        } else if (code === 4) {
+          alert("Need to redirect to gpa page");
+        }
+      }
     });
-    setCourseInformation(data);
   }, []);
 
   const handleBackButton = () => {

@@ -42,6 +42,7 @@ const AccountPageBody = ({
   // Error Messages
   const [showUsernameError, setShowUsernameError] = useState(false);
   const [showEmailError, setShowEmailError] = useState(false);
+  const [showExistingEmailError, setShowExistingEmailError] = useState(false);
 
   useEffect(() => {
     setConversionInfo(getConversionInfo(userConversionId));
@@ -58,6 +59,7 @@ const AccountPageBody = ({
     setUserConversionId(conversionId);
     setShowUsernameError(false);
     setShowEmailError(false);
+    setShowExistingEmailError(false);
   };
 
   const handleSaveClick = () => {
@@ -74,6 +76,7 @@ const AccountPageBody = ({
       setShowEmailError(false);
     } else {
       setShowEmailError(true);
+      setShowExistingEmailError(false);
       passedChecks = false;
     }
 
@@ -86,16 +89,18 @@ const AccountPageBody = ({
       authAxios.put("/user", data).then((res) => {
         const { result, code, data } = res.data;
         if (result) {
-          localStorage.setItem("token", data.token);
+          const { conversionArr, conversion, token } = data;
+          // Update new jwt token
+          localStorage.setItem("token", token);
           // Update redux state (conversionArr, conversion)
-          updateUserInfo();
+          updateUserInfo(conversionArr, conversion);
           // Notice AccountPage.jsx to fetch again
           setUserUpdate(true);
           // Change back to read mode
           setReadMode(true);
         } else {
           if (code === 1) {
-            alert("existing email");
+            setShowExistingEmailError(true);
           } else if (code === 3) {
             alert("Internal Server Error");
           } else if (code === 4) {
@@ -182,6 +187,13 @@ const AccountPageBody = ({
               <p className={showEmailError ? styles.showAlert : styles.noAlert}>
                 Invalid email.
               </p>
+              <p
+                className={
+                  showExistingEmailError ? styles.showAlert : styles.noAlert
+                }
+              >
+                Existing email.
+              </p>
             </div>
           </div>
           <hr className={styles.line} />
@@ -224,7 +236,8 @@ const AccountPageBody = ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateUserInfo: () => dispatch(updateUserInfo()),
+    updateUserInfo: (conversionArr, conversion) =>
+      dispatch(updateUserInfo(conversionArr, conversion)),
   };
 };
 

@@ -26,7 +26,7 @@ const CourseLine = ({ course, conversion, toggleCourse, courseIncluded }) => {
       <p className={`${styles.data} ${styles.grey}`}>
         {(course.units * conversion[course.grade]).toFixed(1)}
       </p>
-      <Link to={`/course/${course.courseId}`} className={styles.editButton}>
+      <Link to={`/course/${course.id}`} className={styles.editButton}>
         Edit
       </Link>
     </div>
@@ -35,12 +35,12 @@ const CourseLine = ({ course, conversion, toggleCourse, courseIncluded }) => {
 
 const mapStateToProps = (state, ownProps) => {
   const { semesterId } = ownProps;
-  const { courseId } = ownProps.course;
+  const { id } = ownProps.course;
   const semester = state.semesters.filter(
     (semester) => semester.id === semesterId
   )[0];
   const courseIncluded = semester.courses.filter(
-    (course) => course.courseId === courseId
+    (course) => course.id === id
   )[0].include;
 
   return {
@@ -53,7 +53,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const { semesterId, course } = ownProps;
   return {
     toggleCourse: (include) =>
-      dispatch(toggleCourse(semesterId, course.courseId, include)),
+      dispatch(toggleCourse(semesterId, course.id, include)),
   };
 };
 

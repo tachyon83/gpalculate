@@ -6,9 +6,13 @@ import { connect } from "react-redux";
 import { numToSeason } from "../../global";
 import axios from "axios";
 
-const Block = ({ conversionArr, semester, conversion, coursesRedux }) => {
-  console.log(semester);
-
+const Block = ({
+  conversionArr,
+  semester,
+  conversion,
+  coursesRedux,
+  setUserUpdate,
+}) => {
   const [shown, setShown] = useState(true);
 
   const toggleSemester = () => {
@@ -43,14 +47,11 @@ const Block = ({ conversionArr, semester, conversion, coursesRedux }) => {
     });
 
     const data = { id: semester.id };
-    console.log(data);
-    authAxios.delete("/semester", data).then((res) => {
-      console.log(res.data);
+    authAxios.delete("/semester", { data }).then((res) => {
       const { result, code } = res.data;
+      console.log(res.data);
       if (result) {
-        //////////////////////////////
-        //////////////////////////////////////
-        // handle delete semester
+        setUserUpdate(true);
       } else {
         if (code === 3) {
           alert("Internal Server Error");
@@ -60,6 +61,25 @@ const Block = ({ conversionArr, semester, conversion, coursesRedux }) => {
       }
     });
   };
+
+  let courseLines;
+
+  if (courses.length > 0) {
+    courseLines = (
+      <>
+        {courses.map((course, i) => (
+          <div key={`${year}-${season}-${i}`}>
+            <CourseLine course={course} semesterId={id} />
+            <hr className={styles.line} />
+          </div>
+        ))}
+        <div className={styles.summary}>
+          <p className={styles.summaryUnits}>{totalUnits}</p>
+          <p className={styles.summaryGrade}>{totalGrade.toFixed(2)}</p>
+        </div>
+      </>
+    );
+  }
 
   return (
     <div
@@ -76,21 +96,12 @@ const Block = ({ conversionArr, semester, conversion, coursesRedux }) => {
         </p>
       </div>
       <div className={styles.detailContainer}>
-        {courses.map((course, i) => (
-          <div key={`${year}-${season}-${i}`}>
-            <CourseLine course={course} semesterId={id} />
-            <hr className={styles.line} />
-          </div>
-        ))}
-        <div className={styles.summary}>
-          <p className={styles.summaryUnits}>{totalUnits}</p>
-          <p className={styles.summaryGrade}>{totalGrade.toFixed(2)}</p>
-        </div>
+        {courseLines}
         <div className={styles.bottom}>
           <p className={styles.gpa}>
             <span className={styles.gpaText}>Cumulative GPA: </span>
             {semesterGpa.toFixed(2)}{" "}
-            <span className={styles.gpaNumber}>/ {maximumGpa}</span>
+            <span className={styles.gpaNumber}>/ {maximumGpa.toFixed(2)}</span>
           </p>
           <div>
             <Button2
