@@ -1,6 +1,7 @@
 .container {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   border-radius: 15px;
+  margin-bottom: 3em;
 }
 
 .title {
@@ -22,7 +23,6 @@
 
 .row {
   display: flex;
-  justify-content: space-between;
 }
 
 .row p {
@@ -30,6 +30,35 @@
   font-size: 14px;
 }
 
+.rowName,
+.rowReceivedScore {
+  flex: 2;
+}
+
+.rowTotalScore {
+  flex: 1;
+}
+
+.rowWeight {
+  flex: 1;
+  text-align: right;
+}
+
 .line {
   border: 1px solid #f6f7fa;
+}
+
+.courseScore {
+  margin: 1.5em 0.5em;
+  font-size: 14px;
+}
+
+.courseScoreTitle {
+  background: linear-gradient(60deg, #03bd93 0%, rgba(3, 155, 163, 1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.grey {
+  color: #d5d5d5;
 }

@@ -60,11 +60,6 @@ const LoginForm = ({ setConversion }) => {
           setLoginSubmitCode(code);
           if (result) {
             localStorage.setItem("token", data.token);
-            ///////////////////////////////////////////////////////////////////
-            //////////////////////////////  CHECK   ///////////////////////////
-            ///////////////////////////////////////////////////////////////////
-            axios.defaults.headers.common["Authorization"] = data.token;
-            alert("login is true");
             setConversion(data.conversionArr, data.conversion);
             setRedirectToReferrer(true);
           }

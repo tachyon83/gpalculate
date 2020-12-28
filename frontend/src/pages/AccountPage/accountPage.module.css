@@ -1,22 +1,21 @@
-.container {
-  flex: 4;
-  padding-bottom: 6em;
+.body {
+  display: flex;
 }
 
-.body {
+.rightBody {
+  flex: 4;
+}
+
+.accountBody {
   width: 85%;
   margin: auto;
 }
 
-.courseName {
+.title {
   background: linear-gradient(60deg, #03bd93 0%, rgba(3, 155, 163, 1) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-top: 1.5em;
   margin-bottom: 2em;
   font-size: 20px;
-}
-
-.buttonContainer {
-  text-align: right;
 }

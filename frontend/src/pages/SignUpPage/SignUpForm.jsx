@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Fade from "react-reveal/Fade";
+import { ConversionChart } from "../../components/ConversionChart/ConversionChart";
 import styles from "./signUpForm.module.css";
 import axios from "axios";
 import { emailPass, passwordPass } from "../../global";
@@ -24,30 +25,6 @@ export const SignUpForm = () => {
 
   const [conversionTypes, setConversionTypes] = useState(null);
 
-  ///////////////////////////////////////////////////////////////////
-  //////////////////////////  CHANGE   //////////////////////////////
-  ///////////////////////////////////////////////////////////////////
-  ////////// Dummy data 부분 전부 바꾸기  //////////////////////////////
-
-  const dummyData = [
-    {
-      conversionId: 1,
-      conversion: [
-        { letter: "A+", number: 4.3 },
-        { letter: "A", number: 4.0 },
-        { letter: "A-", number: 3.7 },
-      ],
-    },
-    {
-      conversionId: 2,
-      conversion: [
-        { letter: "A+", number: 4.0 },
-        { letter: "A", number: 4.0 },
-        { letter: "A-", number: 3.7 },
-      ],
-    },
-  ];
-
   const getConversionInfo = () => {
     const conversionInfo = conversionTypes.filter(
       (conversion) => conversion.conversionId === conversionId
@@ -56,32 +33,22 @@ export const SignUpForm = () => {
   };
 
   useEffect(() => {
-    console.log("Setting conversion types");
     axios
       .get("/conversion")
       .then((res) => {
-        console.log(res.data);
-        ///////////////////////////////////////////////////////////////////
-        //////////////////////////  UNCOMMENT   ///////////////////////////
-        ///////////////////////////////////////////////////////////////////
-        // const { result, code, data } = res.data;
-        // if (result) {
-        //   setConversionTypes(data);
-        // } else if (code === 3) {
-        //   alert("Internal server error");
-        // }
+        const { result, code, data } = res.data;
+        if (result) {
+          setConversionTypes(data);
+        } else if (code === 3) {
+          alert("Internal server error");
+        }
       })
       .catch((err) => {
         console.log(err);
       });
-    ///////////////////////////////////////////////////////////////////
-    //////////////////////////  DELETE    /////////////////////////////
-    ///////////////////////////////////////////////////////////////////
-    setConversionTypes(dummyData);
   }, []);
 
   useEffect(() => {
-    console.log("Updated conversion id => Setting conversion info");
     if (conversionTypes) {
       setConversionInfo(getConversionInfo());
     }
@@ -232,8 +199,12 @@ export const SignUpForm = () => {
           </div>
           <div className={styles.labelInputContainer}>
             <label className={styles.label}>Conversion Type:</label>
-            <select value={conversionId} onChange={onConversionIdChange}>
-              {dummyData.map((conversion) => (
+            <select
+              value={conversionId}
+              onChange={onConversionIdChange}
+              className={styles.conversionId}
+            >
+              {conversionTypes.map((conversion) => (
                 <option
                   value={conversion.conversionId}
                   key={conversion.conversionId}
@@ -242,13 +213,11 @@ export const SignUpForm = () => {
                 </option>
               ))}
             </select>
-            <div>
-              {conversionInfo.map((single) => (
-                <p key={single.letter}>
-                  {single.letter}: {single.number}
-                </p>
-              ))}
-            </div>
+            <ConversionChart
+              conversionArr={conversionInfo}
+              columnNum={4}
+              cn={styles.conversionChart}
+            />
           </div>
           <p className={styles.showAlert}>{signUpSubmitFailure}</p>
           <div className={styles.secondButtonContainer}>

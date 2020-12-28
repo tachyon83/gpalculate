@@ -20,6 +20,14 @@
   box-sizing: border-box;
 }
 
+.conversionId {
+  width: 100%;
+}
+
+.conversionChart {
+  margin-top: 2em;
+}
+
 .button {
   border: none;
   color: white;

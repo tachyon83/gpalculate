@@ -23,12 +23,12 @@
   margin-top: 6em;
 }
 
-.title {
-  color: white;
-}
-
 .converisonChart {
   margin-bottom: 3em;
+}
+
+.title {
+  color: white;
 }
 
 .whiteBody {
@@ -37,20 +37,6 @@
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   font-size: 13px;
   padding: 0.5em;
-}
-
-.conversionBody {
-  display: flex;
-}
-
-.conversionColumn {
-  display: flex;
-  flex: 1;
-}
-
-.conversionNumber {
-  margin-left: 1.2em;
-  margin-right: 0.8em;
 }
 
 .gradientColor {

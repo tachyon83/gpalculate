@@ -47,22 +47,43 @@ const BlockList = ({ setSemesters }) => {
   const [semesterInfo, setSemesterInfo] = useState(null);
 
   useEffect(() => {
-    // axios
-    //   .get("/semester")
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     if (res.data.result) {
-    //       /////////////////////////////////////////////////
-    //       ///////////////////  UNCOMMENT!!!  ///////////////
-    //       /////////////////////////////////////////////////
-    //       // setSemesterInfo(res.data.data)
-    //     } else {
-    //       alert("Failed to load");
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    const jwtToken = localStorage.getItem("token");
+
+    /////////////////////////////////////////////////
+    ///////////////////   고치기    ///////////////////
+    /////////////////////////////////////////////////
+    const authAxios = axios.create({
+      headers: {
+        "x-access-token": jwtToken,
+      },
+    });
+
+    axios
+      .get("/semester", {
+        headers: {
+          "x-access-token": jwtToken,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        const { result, code, data } = res.data;
+        if (result) {
+          /////////////////////////////////////////////////
+          ///////////////////  UNCOMMENT!!!  ///////////////
+          /////////////////////////////////////////////////
+          // setSemesterInfo(data)
+        } else {
+          if (code === 3) {
+            alert("Internal Server error");
+          } else if (code === 4) {
+            alert("Not Authenticated");
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     /////////////////////////////////////////////////
     ///////////////////  DELETE!!!  /////////////////
     /////////////////////////////////////////////////

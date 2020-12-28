@@ -11,6 +11,10 @@ export const passwordPass = (password) => {
   return password !== "";
 };
 
+export const usernamePass = (username) => {
+  return username !== "";
+};
+
 export const numToSeason = {
   1: "Winter",
   2: "Spring",

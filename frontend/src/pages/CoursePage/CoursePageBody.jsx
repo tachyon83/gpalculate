@@ -6,6 +6,7 @@ import { CourseDetailsForm } from "./CourseDetailsForm";
 import { useParams, useHistory } from "react-router-dom";
 import { numToSeason } from "../../global";
 import styles from "./coursePageBody.module.css";
+import axios from "axios";
 
 const data = {
   year: 2020,
@@ -14,9 +15,15 @@ const data = {
   units: 3,
   grade: "B",
   assessment: [
-    { id: 1, name: "Test 1", receivedScore: 80, totalScore: 100, weight: 30 },
-    { id: 2, name: "Test 2", receivedScore: 70, totalScore: 100, weight: 30 },
-    { id: 3, name: "Test 3", receivedScore: 60, totalScore: 100, weight: 40 },
+    {
+      id: 1,
+      name: "Assignment 1",
+      receivedScore: 80,
+      totalScore: 100,
+      weight: 30,
+    },
+    { id: 2, name: "Test 2", receivedScore: 20, totalScore: 25, weight: 30 },
+    { id: 3, name: "Essay 3", receivedScore: 29, totalScore: 30, weight: 40 },
   ],
 };
 
@@ -28,14 +35,30 @@ export const CoursePageBody = () => {
   const [courseInformation, setCourseInformation] = useState(null);
 
   useEffect(() => {
+    const jwtToken = localStorage.getItem("token");
+
     /////////////////////////////////////////////////
-    ///////////////////  EDIT!!!  ///////////////////
+    ///////////////////   고치기    ///////////////////
     /////////////////////////////////////////////////
+
+    const authAxios = axios.create({
+      headers: {
+        "x-access-token": jwtToken,
+      },
+    });
+
+    authAxios.get(`/course/${courseId}`).then((res) => {
+      console.log(res.data);
+    });
     setCourseInformation(data);
   }, []);
 
   const handleBackButton = () => {
     history.push("/gpa");
+  };
+
+  const handleDeleteButton = () => {
+    alert("delete course button");
   };
 
   return (
@@ -49,7 +72,7 @@ export const CoursePageBody = () => {
             }`}
             onClick={handleBackButton}
           />
-          <p className={styles.courseName}>Data Structures</p>
+          <p className={styles.courseName}>{courseInformation.name}</p>
           <CourseGeneralForm
             courseId={courseId}
             courseInformation={courseInformation}
@@ -58,6 +81,9 @@ export const CoursePageBody = () => {
             courseId={courseId}
             courseInformation={courseInformation}
           />
+          <div className={styles.buttonContainer}>
+            <Button3 text="Delete Course" onClick={handleDeleteButton} />
+          </div>
         </div>
       ) : (
         <div>Loading...</div>
