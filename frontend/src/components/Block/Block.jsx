@@ -4,8 +4,11 @@ import { Button2 } from "../Buttons/Buttons";
 import styles from "./block.module.css";
 import { connect } from "react-redux";
 import { numToSeason } from "../../global";
+import axios from "axios";
 
 const Block = ({ conversionArr, semester, conversion, coursesRedux }) => {
+  console.log(semester);
+
   const [shown, setShown] = useState(true);
 
   const toggleSemester = () => {
@@ -32,7 +35,30 @@ const Block = ({ conversionArr, semester, conversion, coursesRedux }) => {
   };
 
   const handleDeleteSemester = () => {
-    alert("handleDeleteSemester");
+    const jwtToken = localStorage.getItem("token");
+    const authAxios = axios.create({
+      headers: {
+        "x-access-token": jwtToken,
+      },
+    });
+
+    const data = { id: semester.id };
+    console.log(data);
+    authAxios.delete("/semester", data).then((res) => {
+      console.log(res.data);
+      const { result, code } = res.data;
+      if (result) {
+        //////////////////////////////
+        //////////////////////////////////////
+        // handle delete semester
+      } else {
+        if (code === 3) {
+          alert("Internal Server Error");
+        } else if (code === 4) {
+          alert("Not authenticated");
+        }
+      }
+    });
   };
 
   return (

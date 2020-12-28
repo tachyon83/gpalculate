@@ -2,3 +2,9 @@
   flex: 4;
   padding-bottom: 6em;
 }
+
+.buttonContainer {
+  width: 85%;
+  margin: auto;
+  text-align: right;
+}
