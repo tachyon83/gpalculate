@@ -1,0 +1,26 @@
+.row {
+  display: flex;
+}
+
+.row p {
+  margin: 0.5em;
+  font-size: 14px;
+}
+
+.rowName {
+  flex: 4;
+}
+
+.rowReceivedScore,
+.rowTotalScore,
+.rowWeight {
+  flex: 3;
+}
+
+.row button {
+  flex: 2;
+}
+
+.line {
+  border: 1px solid #f6f7fa;
+}

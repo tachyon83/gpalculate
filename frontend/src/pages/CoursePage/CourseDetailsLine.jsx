@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button2 } from "../../components/Buttons/Buttons";
-import styles from "./courseDetails.module.css";
+import { EditAssessment } from "../GpaPage/GpaRodal";
+import styles from "./courseDetailsLine.module.css";
 
-export const CourseDetailsLine = ({ assessment }) => {
-  const handleDelete = () => {
-    //
+export const CourseDetailsLine = ({ courseId, assessment, setUserUpdate }) => {
+  const [showAssessmentRodal, setShowAssessmentRodal] = useState(false);
+
+  const onEditClick = () => {
+    setShowAssessmentRodal(true);
   };
 
   return (
@@ -14,14 +17,16 @@ export const CourseDetailsLine = ({ assessment }) => {
         <p className={styles.rowReceivedScore}>{assessment.receivedScore}</p>
         <p className={styles.rowTotalScore}>{assessment.totalScore}</p>
         <p className={styles.rowWeight}>{assessment.weight}%</p>
-        <Button2
-          text="Delete"
-          cn={styles.deleteButton}
-          onClick={handleDelete}
-        />
-        <Button2 text="Save" />
+        <Button2 text="Edit" onClick={onEditClick} />
       </div>
       <hr className={styles.line} />
+      <EditAssessment
+        courseId={courseId}
+        assessment={assessment}
+        showAssessmentRodal={showAssessmentRodal}
+        setShowAssessmentRodal={setShowAssessmentRodal}
+        setUserUpdate={setUserUpdate}
+      />
     </>
   );
 };

@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import { Button2 } from "../../components/Buttons/Buttons";
-import axios from "axios";
 import styles from "./courseDetails.module.css";
 import { CourseDetailsLine } from "./CourseDetailsLine";
+import { NewAssessment } from "../GpaPage/GpaRodal";
 
-export const CourseDetails = ({ courseId, courseInformation }) => {
+export const CourseDetails = ({
+  courseId,
+  courseInformation,
+  setUserUpdate,
+}) => {
   const assessmentList = courseInformation.assessmentsArr;
+
+  const [showNewAssessmentRodal, setShowNewAssessmentRodal] = useState(false);
 
   let courseScore = 0;
   for (let assessment of assessmentList) {
@@ -15,26 +21,10 @@ export const CourseDetails = ({ courseId, courseInformation }) => {
   }
 
   const handleNewAssessment = () => {
-    const jwtToken = localStorage.getItem("token");
-    const authAxios = axios.create({
-      headers: {
-        "x-access-token": jwtToken,
-      },
-    });
-
-    const data = {
-      courseId: parseInt(courseId),
-      name: "",
-      receivedScore: 0,
-      totalScore: 0,
-      weight: 0,
-    };
-
-    authAxios.post("/assessment", data).then((res) => {
-      ////////////
-    });
+    setShowNewAssessmentRodal(true);
   };
 
+  // Top
   let top = <></>;
   if (assessmentList.length > 0) {
     top = (
@@ -47,9 +37,13 @@ export const CourseDetails = ({ courseId, courseInformation }) => {
           <span className={styles.empty}></span>
         </div>
         <hr className={styles.line} />
-
         {assessmentList.map((assessment, i) => (
-          <CourseDetailsLine assessment={assessment} key={i} />
+          <CourseDetailsLine
+            key={i}
+            courseId={courseId}
+            assessment={assessment}
+            setUserUpdate={setUserUpdate}
+          />
         ))}
       </div>
     );
@@ -69,6 +63,12 @@ export const CourseDetails = ({ courseId, courseInformation }) => {
             <span className={styles.grey}> / 100</span>
           </p>
           <Button2 text="New Assessment" onClick={handleNewAssessment} />
+          <NewAssessment
+            courseId={courseId}
+            showNewAssessmentRodal={showNewAssessmentRodal}
+            setShowNewAssessmentRodal={setShowNewAssessmentRodal}
+            setUserUpdate={setUserUpdate}
+          />
         </div>
       </div>
     </div>

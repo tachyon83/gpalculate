@@ -7,6 +7,7 @@ import axios from "axios";
 const CourseGeneral = ({
   courseId,
   courseInformation,
+  setUserUpdate,
   conversionArr,
   semesters,
 }) => {
@@ -92,12 +93,10 @@ const CourseGeneral = ({
         console.log(res.data);
 
         if (result) {
-          ////////////////////////////////////////////////
-          ////////////////////////////////////////////////
           // Update parent component
+          setUserUpdate(true);
           // Go back to read mode
-          ////////////////////////////////////////////////
-          ////////////////////////////////////////////////
+          setReadMode(true);
         } else {
           if (code === 3) {
             alert("Internal Server Error");

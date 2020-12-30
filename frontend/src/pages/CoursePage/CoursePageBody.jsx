@@ -13,9 +13,11 @@ export const CoursePageBody = () => {
   const params = useParams();
   const courseId = params.id;
 
+  const [userUpdate, setUserUpdate] = useState(false);
   const [courseInformation, setCourseInformation] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const fetchCourseData = () => {
     const jwtToken = localStorage.getItem("token");
     const authAxios = axios.create({
       headers: {
@@ -27,6 +29,7 @@ export const CoursePageBody = () => {
       const { result, code, data } = res.data;
       if (result) {
         setCourseInformation(data);
+        setLoading(false);
       } else {
         if (code === 3) {
           alert("Internal Server Error");
@@ -35,7 +38,19 @@ export const CoursePageBody = () => {
         }
       }
     });
+  };
+
+  useEffect(() => {
+    fetchCourseData();
   }, []);
+
+  useEffect(() => {
+    if (userUpdate) {
+      setLoading(true);
+      fetchCourseData();
+    }
+    setUserUpdate(false);
+  }, [userUpdate]);
 
   const handleBackButton = () => {
     history.push("/gpa");
@@ -67,7 +82,9 @@ export const CoursePageBody = () => {
   return (
     <div className={styles.container}>
       <Nav2 />
-      {courseInformation ? (
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
         <div className={styles.body}>
           <Button3
             text={`\u2190 ${courseInformation.year} ${
@@ -79,17 +96,17 @@ export const CoursePageBody = () => {
           <CourseGeneral
             courseId={courseId}
             courseInformation={courseInformation}
+            setUserUpdate={setUserUpdate}
           />
           <CourseDetails
             courseId={courseId}
             courseInformation={courseInformation}
+            setUserUpdate={setUserUpdate}
           />
           <div className={styles.buttonContainer}>
             <Button3 text="Delete Course" onClick={handleDeleteButton} />
           </div>
         </div>
-      ) : (
-        <div>Loading...</div>
       )}
     </div>
   );

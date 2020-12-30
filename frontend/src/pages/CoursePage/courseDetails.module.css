@@ -41,15 +41,7 @@
 }
 
 .empty {
-  flex: 4;
-  margin-right: 3em;
-}
-
-.row button {
   flex: 2;
-}
-
-.row .deleteButton {
   margin-right: 2em;
 }
 

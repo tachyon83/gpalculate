@@ -24,13 +24,28 @@
   flex: 2;
 }
 
+.rowData input,
+.rowData select {
+  width: 100%;
+}
+
 .showAlert {
   color: #db4437;
   font-size: 13px;
+  margin: 0;
+  margin-top: 0.5em;
 }
 
 .noAlert {
   display: none;
+}
+
+.leftButton {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin-bottom: 2em;
+  margin-left: 2em;
 }
 
 .buttonContainer {
@@ -42,7 +57,8 @@
   margin-right: 2em;
 }
 
-.buttonContainer button {
+.buttonContainer button,
+.leftButton button {
   width: 100px;
   padding: 0.5em 1.5em;
 }

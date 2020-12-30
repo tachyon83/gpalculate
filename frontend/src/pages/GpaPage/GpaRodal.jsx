@@ -80,6 +80,9 @@ export const NewSemester = ({
                 value={year}
                 onChange={handleYearChange}
               />
+              <p className={showYearError ? styles.showAlert : styles.noAlert}>
+                Invalid year.
+              </p>
             </div>
           </div>
           <div className={styles.row}>
@@ -91,9 +94,6 @@ export const NewSemester = ({
                 <option value={3}>Summer</option>
                 <option value={4}>Fall</option>
               </select>
-              <p className={showYearError ? styles.showAlert : styles.noAlert}>
-                Invalid year.
-              </p>
               <p
                 className={showExistsError ? styles.showAlert : styles.noAlert}
               >
@@ -221,6 +221,9 @@ const NewCourse = ({
                 value={name}
                 onChange={handleNameChange}
               />
+              <p className={showNameError ? styles.showAlert : styles.noAlert}>
+                Invalid name.
+              </p>
             </div>
           </div>
           <div className={styles.row}>
@@ -232,6 +235,9 @@ const NewCourse = ({
                 value={units}
                 onChange={handleUnitsChange}
               />
+              <p className={showUnitsError ? styles.showAlert : styles.noAlert}>
+                Invalid units.
+              </p>
             </div>
           </div>
           <div className={styles.row}>
@@ -247,33 +253,7 @@ const NewCourse = ({
                   </option>
                 ))}
               </select>
-              <p
-                className={
-                  showNameError && showUnitsError
-                    ? styles.showAlert
-                    : styles.noAlert
-                }
-              >
-                Invalid name and units.
-              </p>
-              <p
-                className={
-                  showNameError && !showUnitsError
-                    ? styles.showAlert
-                    : styles.noAlert
-                }
-              >
-                Invalid name.
-              </p>
-              <p
-                className={
-                  showUnitsError && !showNameError
-                    ? styles.showAlert
-                    : styles.noAlert
-                }
-              >
-                Invalid units.
-              </p>
+
               <p
                 className={showExistsError ? styles.showAlert : styles.noAlert}
               >
@@ -303,3 +283,465 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(NewCourse);
+
+export const EditAssessment = ({
+  courseId,
+  assessment,
+  showAssessmentRodal,
+  setShowAssessmentRodal,
+  setUserUpdate,
+}) => {
+  // Original Values
+  const {
+    id: assessmentId,
+    name: originalName,
+    receivedScore: originalReceivedScore,
+    totalScore: originalTotalScore,
+    weight: originalWeight,
+  } = assessment;
+
+  // Edit values
+  const [name, setName] = useState(originalName);
+  const [receivedScore, setReceivedScore] = useState(originalReceivedScore);
+  const [totalScore, setTotalScore] = useState(originalTotalScore);
+  const [weight, setWeight] = useState(originalWeight);
+
+  // Error
+  const [showNameError, setShowNameError] = useState(false);
+  const [showReceivedScoreError, setShowReceivedScoreError] = useState(false);
+  const [showTotalScoreError, setShowTotalScoreError] = useState(false);
+  const [showWeightError, setShowWeightError] = useState(false);
+
+  // Axios
+  const jwtToken = localStorage.getItem("token");
+  const authAxios = axios.create({
+    headers: {
+      "x-access-token": jwtToken,
+    },
+  });
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleReceivedScoreChange = (e) => {
+    setReceivedScore(e.target.value);
+  };
+
+  const handleTotalScoreChange = (e) => {
+    setTotalScore(e.target.value);
+  };
+
+  const handleWeightchange = (e) => {
+    setWeight(e.target.value);
+  };
+
+  const handleDeleteClick = () => {
+    const data = { id: assessmentId };
+    authAxios.delete("/assessment", { data }).then((res) => {
+      const { result, code } = res.data;
+      if (result) {
+        // Update Parent
+        setUserUpdate(true);
+        // Close Modal
+        setShowAssessmentRodal(false);
+      } else {
+        if (code === 3) {
+          alert("Internal Server Error");
+        } else if (code === 4) {
+          alert("Not authenticated");
+        }
+      }
+    });
+  };
+
+  const handleCancelClick = () => {
+    // Reset Values
+    setName(originalName);
+    setReceivedScore(originalReceivedScore);
+    setTotalScore(originalTotalScore);
+    setWeight(originalWeight);
+
+    // Reset Errors
+    setShowNameError(false);
+    setShowReceivedScoreError(false);
+    setShowTotalScoreError(false);
+    setShowWeightError(false);
+
+    // Close Modal
+    setShowAssessmentRodal(false);
+  };
+
+  const handleSaveClick = () => {
+    // Total Check
+    let passedCheck = true;
+
+    // Name Check
+    if (name === "") {
+      setShowNameError(true);
+      passedCheck = false;
+    } else {
+      setShowNameError(false);
+    }
+
+    // Received Score Check
+    if (receivedScore === "") {
+      setShowReceivedScoreError(true);
+      passedCheck = false;
+    } else {
+      setShowReceivedScoreError(false);
+    }
+
+    // Total Score Check
+    if (totalScore === "") {
+      setShowTotalScoreError(true);
+      passedCheck = false;
+    } else {
+      setShowTotalScoreError(false);
+    }
+
+    // Weight Check
+    if (weight === "") {
+      setShowWeightError(true);
+      passedCheck = false;
+    } else {
+      setShowWeightError(false);
+    }
+
+    if (passedCheck) {
+      // Axios
+      const jwtToken = localStorage.getItem("token");
+      const authAxios = axios.create({
+        headers: {
+          "x-access-token": jwtToken,
+        },
+      });
+
+      const data = {
+        id: assessmentId,
+        courseId,
+        name,
+        receivedScore,
+        totalScore,
+        weight,
+      };
+      authAxios.put("/assessment", data).then((res) => {
+        const { result, code } = res.data;
+        if (result) {
+          // Parent = update
+          setUserUpdate(true);
+          // Close modal
+          setShowAssessmentRodal(false);
+        } else {
+          if (code === 3) {
+            alert("Internal Server Error");
+          } else if (code === 4) {
+            alert("Not authenticated");
+          }
+        }
+      });
+    }
+  };
+
+  return (
+    <Rodal
+      visible={showAssessmentRodal}
+      onClose={handleCancelClick}
+      width={550}
+      height={380}
+    >
+      <div className={styles.container}>
+        <p className={styles.title}>Edit Assessment</p>
+        <form>
+          <div className={styles.row}>
+            <label className={styles.rowLabel}>Assessment Name:</label>
+            <div className={styles.rowData}>
+              <input
+                type="text"
+                placeholder="Exam"
+                value={name}
+                onChange={handleNameChange}
+              />
+              <p className={showNameError ? styles.showAlert : styles.noAlert}>
+                Invalid name.
+              </p>
+            </div>
+          </div>
+          <div className={styles.row}>
+            <label className={styles.rowLabel}>Received Score:</label>
+            <div className={styles.rowData}>
+              <input
+                type="number"
+                placeholder="90"
+                value={receivedScore}
+                onChange={handleReceivedScoreChange}
+              />
+              <p
+                className={
+                  showReceivedScoreError ? styles.showAlert : styles.noAlert
+                }
+              >
+                Invalid received score.
+              </p>
+            </div>
+          </div>
+          <div className={styles.row}>
+            <label className={styles.rowLabel}>Total Score:</label>
+            <div className={styles.rowData}>
+              <input
+                type="number"
+                placeholder="100"
+                value={totalScore}
+                onChange={handleTotalScoreChange}
+              />
+              <p
+                className={
+                  showTotalScoreError ? styles.showAlert : styles.noAlert
+                }
+              >
+                Invalid total score.
+              </p>
+            </div>
+          </div>
+          <div className={styles.row}>
+            <label className={styles.rowLabel}>Weight:</label>
+            <div className={styles.rowData}>
+              <input
+                type="number"
+                placeholder="20"
+                value={weight}
+                onChange={handleWeightchange}
+              />
+              <p
+                className={showWeightError ? styles.showAlert : styles.noAlert}
+              >
+                Invalid weight.
+              </p>
+            </div>
+          </div>
+        </form>
+
+        <div className={styles.leftButton}>
+          <Button2
+            text="Delete"
+            onClick={handleDeleteClick}
+            cn={styles.deleteButton}
+          />
+        </div>
+        <div className={styles.buttonContainer}>
+          <Button2
+            text="Cancel"
+            onClick={handleCancelClick}
+            cn={styles.cancelButton}
+          />
+          <Button2 text="Save" onClick={handleSaveClick} />
+        </div>
+      </div>
+    </Rodal>
+  );
+};
+
+export const NewAssessment = ({
+  courseId,
+  showNewAssessmentRodal,
+  setShowNewAssessmentRodal,
+  setUserUpdate,
+}) => {
+  // Values
+  const [name, setName] = useState("");
+  const [receivedScore, setReceivedScore] = useState("");
+  const [totalScore, setTotalScore] = useState("");
+  const [weight, setWeight] = useState("");
+
+  // Error
+  const [showNameError, setShowNameError] = useState(false);
+  const [showReceivedScoreError, setShowReceivedScoreError] = useState(false);
+  const [showTotalScoreError, setShowTotalScoreError] = useState(false);
+  const [showWeightError, setShowWeightError] = useState(false);
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleReceivedScoreChange = (e) => {
+    setReceivedScore(e.target.value);
+  };
+
+  const handleTotalScoreChange = (e) => {
+    setTotalScore(e.target.value);
+  };
+
+  const handleWeightchange = (e) => {
+    setWeight(e.target.value);
+  };
+
+  const handleCancelClick = () => {
+    // Reset Values
+    setName("");
+    setReceivedScore("");
+    setTotalScore("");
+    setWeight("");
+
+    // Reset Errors
+    setShowNameError(false);
+    setShowReceivedScoreError(false);
+    setShowTotalScoreError(false);
+    setShowWeightError(false);
+
+    // Close Modal
+    setShowNewAssessmentRodal(false);
+  };
+
+  const handleSaveClick = () => {
+    // Total Check
+    let passedCheck = true;
+
+    // Name Check
+    if (name === "") {
+      setShowNameError(true);
+      passedCheck = false;
+    } else {
+      setShowNameError(false);
+    }
+
+    // Received Score Check
+    if (receivedScore === "") {
+      setShowReceivedScoreError(true);
+      passedCheck = false;
+    } else {
+      setShowReceivedScoreError(false);
+    }
+
+    // Total Score Check
+    if (totalScore === "") {
+      setShowTotalScoreError(true);
+      passedCheck = false;
+    } else {
+      setShowTotalScoreError(false);
+    }
+
+    // Weight Check
+    if (weight === "") {
+      setShowWeightError(true);
+      passedCheck = false;
+    } else {
+      setShowWeightError(false);
+    }
+
+    if (passedCheck) {
+      // Axios
+      const jwtToken = localStorage.getItem("token");
+      const authAxios = axios.create({
+        headers: {
+          "x-access-token": jwtToken,
+        },
+      });
+
+      const data = { courseId, name, receivedScore, totalScore, weight };
+      authAxios.post("/assessment", data).then((res) => {
+        const { result, code } = res.data;
+        if (result) {
+          // Parent = update
+          setUserUpdate(true);
+          // Close modal
+          setShowNewAssessmentRodal(false);
+        } else {
+          if (code === 3) {
+            alert("Internal Server Error");
+          } else if (code === 4) {
+            alert("Not authenticated");
+          }
+        }
+      });
+    }
+  };
+
+  return (
+    <Rodal
+      visible={showNewAssessmentRodal}
+      onClose={handleCancelClick}
+      width={550}
+      height={380}
+    >
+      <div className={styles.container}>
+        <p className={styles.title}>Add New Assessment</p>
+        <form>
+          <div className={styles.row}>
+            <label className={styles.rowLabel}>Assessment Name:</label>
+            <div className={styles.rowData}>
+              <input
+                type="text"
+                placeholder="Exam"
+                value={name}
+                onChange={handleNameChange}
+              />
+              <p className={showNameError ? styles.showAlert : styles.noAlert}>
+                Invalid name.
+              </p>
+            </div>
+          </div>
+          <div className={styles.row}>
+            <label className={styles.rowLabel}>Received Score:</label>
+            <div className={styles.rowData}>
+              <input
+                type="number"
+                placeholder="90"
+                value={receivedScore}
+                onChange={handleReceivedScoreChange}
+              />
+              <p
+                className={
+                  showReceivedScoreError ? styles.showAlert : styles.noAlert
+                }
+              >
+                Invalid received score.
+              </p>
+            </div>
+          </div>
+          <div className={styles.row}>
+            <label className={styles.rowLabel}>Total Score:</label>
+            <div className={styles.rowData}>
+              <input
+                type="number"
+                placeholder="100"
+                value={totalScore}
+                onChange={handleTotalScoreChange}
+              />
+              <p
+                className={
+                  showTotalScoreError ? styles.showAlert : styles.noAlert
+                }
+              >
+                Invalid total score.
+              </p>
+            </div>
+          </div>
+          <div className={styles.row}>
+            <label className={styles.rowLabel}>Weight:</label>
+            <div className={styles.rowData}>
+              <input
+                type="number"
+                placeholder="20"
+                value={weight}
+                onChange={handleWeightchange}
+              />
+              <p
+                className={showWeightError ? styles.showAlert : styles.noAlert}
+              >
+                Invalid weight.
+              </p>
+            </div>
+          </div>
+        </form>
+        <div className={styles.buttonContainer}>
+          <Button2
+            text="Cancel"
+            onClick={handleCancelClick}
+            cn={styles.cancelButton}
+          />
+          <Button2 text="Save" onClick={handleSaveClick} />
+        </div>
+      </div>
+    </Rodal>
+  );
+};
