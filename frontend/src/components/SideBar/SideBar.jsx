@@ -42,7 +42,7 @@ const Summary = ({ conversionArr, conversion, semesters }) => {
             <span className={styles.grey}>/ {maximumGpa}</span>
           </p>
         ))}
-        <hr className={styles.line} />
+        {gpaArr.length === 0 ? <></> : <hr className={styles.line} />}
         <p>
           <span className={styles.gradientColor}>Cumulatve GPA: </span>
           {totalGpa.toFixed(2)}{" "}

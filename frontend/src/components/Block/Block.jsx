@@ -4,6 +4,7 @@ import { Button2 } from "../Buttons/Buttons";
 import styles from "./block.module.css";
 import { connect } from "react-redux";
 import { numToSeason } from "../../global";
+import NewCourse from "../../pages/GpaPage/GpaRodal";
 import axios from "axios";
 
 const Block = ({
@@ -14,6 +15,8 @@ const Block = ({
   setUserUpdate,
 }) => {
   const [shown, setShown] = useState(true);
+
+  const [showNewCourseRodal, setShowNewCourseRodal] = useState(false);
 
   const toggleSemester = () => {
     setShown((prevShown) => !prevShown);
@@ -35,7 +38,7 @@ const Block = ({
   const { courses, id, season, year } = semester;
 
   const handleNewCourse = () => {
-    alert("handleNewCourse");
+    setShowNewCourseRodal(true);
   };
 
   const handleDeleteSemester = () => {
@@ -49,7 +52,6 @@ const Block = ({
     const data = { id: semester.id };
     authAxios.delete("/semester", { data }).then((res) => {
       const { result, code } = res.data;
-      console.log(res.data);
       if (result) {
         setUserUpdate(true);
       } else {
@@ -117,6 +119,12 @@ const Block = ({
           </div>
         </div>
       </div>
+      <NewCourse
+        setUserUpdate={setUserUpdate}
+        showNewCourseRodal={showNewCourseRodal}
+        setShowNewCourseRodal={setShowNewCourseRodal}
+        semesterId={id}
+      />
     </div>
   );
 };

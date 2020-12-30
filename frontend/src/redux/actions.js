@@ -1,5 +1,4 @@
 import { LOGOUT, SET_CONVERSION, SET_SEMESTERS, TOGGLE_COURSE } from "./types";
-import axios from "axios";
 
 export const logout = () => {
   return {

@@ -11,11 +11,6 @@
   margin: 0.5em;
 }
 
-.container input,
-.container select {
-  padding-left: 1em;
-}
-
 .row {
   display: flex;
 }
@@ -29,6 +24,16 @@
 
 .row .rowData {
   flex: 4;
+}
+
+.rowData input {
+  width: 95%;
+  padding: 0.5em 1em;
+}
+
+.rowData select {
+  width: 99%;
+  padding: 0.5em 1em;
 }
 
 .line {
@@ -47,4 +52,13 @@
 
 .cancelButton {
   margin-right: 3em;
+}
+
+.showAlert {
+  color: #db4437;
+  font-size: 13px;
+}
+
+.noAlert {
+  display: none;
 }
