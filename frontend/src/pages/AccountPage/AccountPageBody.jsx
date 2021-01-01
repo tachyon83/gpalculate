@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import styles from "./accountPageBody.module.css";
 import { Button2 } from "../../components/Buttons/Buttons";
 import { ConversionChart } from "../../components/ConversionChart/ConversionChart";
@@ -104,7 +105,7 @@ const AccountPageBody = ({
           } else if (code === 3) {
             alert("Internal Server Error");
           } else if (code === 4) {
-            alert("Not authenticated");
+            return <Redirect to={{ pathname: "/login" }} />;
           }
         }
       });

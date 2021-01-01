@@ -34,7 +34,7 @@ export const CoursePageBody = () => {
         if (code === 3) {
           alert("Internal Server Error");
         } else if (code === 4) {
-          alert("Need to redirect to gpa page");
+          history.push("/gpa");
         }
       }
     });

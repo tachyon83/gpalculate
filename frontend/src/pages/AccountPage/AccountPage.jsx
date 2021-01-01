@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import SideBar from "../../components/SideBar/SideBar";
 import Nav2 from "../../components/Nav2/Nav2";
 import AccountPageBody from "./AccountPageBody";
@@ -27,7 +28,7 @@ export const AccountPage = () => {
         if (code === 3) {
           alert("Internal Server Error");
         } else if (code === 4) {
-          alert("Not Authenticated");
+          return <Redirect to={{ pathname: "/login" }} />;
         }
       }
     });
@@ -44,7 +45,7 @@ export const AccountPage = () => {
         if (code === 3) {
           alert("Internal Server Error");
         } else if (code === 4) {
-          alert("Not Authenticated");
+          return <Redirect to={{ pathname: "/login" }} />;
         }
       }
     });

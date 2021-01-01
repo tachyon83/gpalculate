@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import CourseLine from "../CourseLine/CourseLine";
 import { Button2 } from "../Buttons/Buttons";
 import styles from "./block.module.css";
@@ -58,7 +59,7 @@ const Block = ({
         if (code === 3) {
           alert("Internal Server Error");
         } else if (code === 4) {
-          alert("Not authenticated");
+          return <Redirect to={{ pathname: "/login" }} />;
         }
       }
     });

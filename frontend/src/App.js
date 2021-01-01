@@ -38,6 +38,17 @@ function PrivateRoute({ children, ...rest }) {
   );
 }
 
+function NonuserRoute({ children, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={({ location }) => {
+        return checkAuth() ? <Redirect to={{ pathname: "/gpa" }} /> : children;
+      }}
+    />
+  );
+}
+
 const persistor = persistStore(store);
 
 function App() {
@@ -47,8 +58,12 @@ function App() {
         <Router>
           <Switch>
             <Route exact path="/" component={LandingPage} />
-            <Route path="/login" component={LoginPage} />
-            <Route path="/signUp" component={SignUpPage} />
+            <NonuserRoute path="/login">
+              <LoginPage />
+            </NonuserRoute>
+            <NonuserRoute path="/signUp">
+              <SignUpPage />
+            </NonuserRoute>
             <PrivateRoute path="/gpa">
               <GpaPage />
             </PrivateRoute>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import { Button2 } from "../../components/Buttons/Buttons";
 import Rodal from "rodal";
 import axios from "axios";
@@ -57,7 +58,7 @@ export const NewSemester = ({
           if (code === 3) {
             alert("Internal Server Error");
           } else if (code === 4) {
-            alert("Not authenticated");
+            return <Redirect to={{ pathname: "/login" }} />;
           } else if (code === 5) {
             setShowExistsError(true);
           }
@@ -193,7 +194,7 @@ const NewCourse = ({
           if (code === 3) {
             alert("Internal Server Error");
           } else if (code === 4) {
-            alert("Not authenticated");
+            return <Redirect to={{ pathname: "/login" }} />;
           } else if (code === 5) {
             setShowExistsError(true);
           }
@@ -311,6 +312,7 @@ export const EditAssessment = ({
   const [showReceivedScoreError, setShowReceivedScoreError] = useState(false);
   const [showTotalScoreError, setShowTotalScoreError] = useState(false);
   const [showWeightError, setShowWeightError] = useState(false);
+  const [showExistsError, setShowExistsError] = useState(false);
 
   // Axios
   const jwtToken = localStorage.getItem("token");
@@ -349,7 +351,7 @@ export const EditAssessment = ({
         if (code === 3) {
           alert("Internal Server Error");
         } else if (code === 4) {
-          alert("Not authenticated");
+          return <Redirect to={{ pathname: "/login" }} />;
         }
       }
     });
@@ -367,6 +369,7 @@ export const EditAssessment = ({
     setShowReceivedScoreError(false);
     setShowTotalScoreError(false);
     setShowWeightError(false);
+    setShowExistsError(false);
 
     // Close Modal
     setShowAssessmentRodal(false);
@@ -379,6 +382,7 @@ export const EditAssessment = ({
     // Name Check
     if (name === "") {
       setShowNameError(true);
+      setShowExistsError(false);
       passedCheck = false;
     } else {
       setShowNameError(false);
@@ -387,6 +391,7 @@ export const EditAssessment = ({
     // Received Score Check
     if (receivedScore === "") {
       setShowReceivedScoreError(true);
+      setShowExistsError(false);
       passedCheck = false;
     } else {
       setShowReceivedScoreError(false);
@@ -395,6 +400,7 @@ export const EditAssessment = ({
     // Total Score Check
     if (totalScore === "") {
       setShowTotalScoreError(true);
+      setShowExistsError(false);
       passedCheck = false;
     } else {
       setShowTotalScoreError(false);
@@ -403,6 +409,7 @@ export const EditAssessment = ({
     // Weight Check
     if (weight === "") {
       setShowWeightError(true);
+      setShowExistsError(false);
       passedCheck = false;
     } else {
       setShowWeightError(false);
@@ -436,7 +443,9 @@ export const EditAssessment = ({
           if (code === 3) {
             alert("Internal Server Error");
           } else if (code === 4) {
-            alert("Not authenticated");
+            return <Redirect to={{ pathname: "/login" }} />;
+          } else if (code === 5) {
+            setShowExistsError(true);
           }
         }
       });
@@ -464,6 +473,11 @@ export const EditAssessment = ({
               />
               <p className={showNameError ? styles.showAlert : styles.noAlert}>
                 Invalid name.
+              </p>
+              <p
+                className={showExistsError ? styles.showAlert : styles.noAlert}
+              >
+                There is an existing assessment.
               </p>
             </div>
           </div>
@@ -558,6 +572,7 @@ export const NewAssessment = ({
   const [showReceivedScoreError, setShowReceivedScoreError] = useState(false);
   const [showTotalScoreError, setShowTotalScoreError] = useState(false);
   const [showWeightError, setShowWeightError] = useState(false);
+  const [showExistsError, setShowExistsError] = useState(false);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -587,6 +602,7 @@ export const NewAssessment = ({
     setShowReceivedScoreError(false);
     setShowTotalScoreError(false);
     setShowWeightError(false);
+    setShowExistsError(false);
 
     // Close Modal
     setShowNewAssessmentRodal(false);
@@ -599,6 +615,7 @@ export const NewAssessment = ({
     // Name Check
     if (name === "") {
       setShowNameError(true);
+      setShowExistsError(false);
       passedCheck = false;
     } else {
       setShowNameError(false);
@@ -607,6 +624,7 @@ export const NewAssessment = ({
     // Received Score Check
     if (receivedScore === "") {
       setShowReceivedScoreError(true);
+      setShowExistsError(false);
       passedCheck = false;
     } else {
       setShowReceivedScoreError(false);
@@ -615,6 +633,7 @@ export const NewAssessment = ({
     // Total Score Check
     if (totalScore === "") {
       setShowTotalScoreError(true);
+      setShowExistsError(false);
       passedCheck = false;
     } else {
       setShowTotalScoreError(false);
@@ -623,6 +642,7 @@ export const NewAssessment = ({
     // Weight Check
     if (weight === "") {
       setShowWeightError(true);
+      setShowExistsError(false);
       passedCheck = false;
     } else {
       setShowWeightError(false);
@@ -640,6 +660,7 @@ export const NewAssessment = ({
       const data = { courseId, name, receivedScore, totalScore, weight };
       authAxios.post("/assessment", data).then((res) => {
         const { result, code } = res.data;
+        console.log(res.data);
         if (result) {
           // Parent = update
           setUserUpdate(true);
@@ -649,7 +670,9 @@ export const NewAssessment = ({
           if (code === 3) {
             alert("Internal Server Error");
           } else if (code === 4) {
-            alert("Not authenticated");
+            return <Redirect to={{ pathname: "/login" }} />;
+          } else if (code === 5) {
+            setShowExistsError(true);
           }
         }
       });
@@ -677,6 +700,11 @@ export const NewAssessment = ({
               />
               <p className={showNameError ? styles.showAlert : styles.noAlert}>
                 Invalid name.
+              </p>
+              <p
+                className={showExistsError ? styles.showAlert : styles.noAlert}
+              >
+                There is an existing assessment.
               </p>
             </div>
           </div>

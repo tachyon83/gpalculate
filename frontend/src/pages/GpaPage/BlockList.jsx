@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import Block from "../../components/Block/Block";
 import axios from "axios";
 import { connect } from "react-redux";
@@ -28,7 +29,7 @@ const BlockList = ({ setSemesters, userUpdate, setUserUpdate }) => {
           if (code === 3) {
             alert("Internal Server error");
           } else if (code === 4) {
-            alert("Not Authenticated");
+            return <Redirect to={{ pathname: "/login" }} />;
           }
         }
       })

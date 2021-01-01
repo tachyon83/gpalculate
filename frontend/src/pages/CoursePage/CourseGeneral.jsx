@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import { Button2 } from "../../components/Buttons/Buttons";
 import styles from "./courseGeneral.module.css";
 import { connect } from "react-redux";
@@ -9,7 +10,6 @@ const CourseGeneral = ({
   courseInformation,
   setUserUpdate,
   conversionArr,
-  semesters,
 }) => {
   // Initial Values
   const { id: semesterId, name, units, grade } = courseInformation;
@@ -25,6 +25,7 @@ const CourseGeneral = ({
   // Error Messages
   const [showCourseNameError, setShowCourseNameError] = useState(false);
   const [showCourseUnitsError, setShowCourseUnitsError] = useState(false);
+  const [showExistsError, setShowExistsError] = useState(false);
 
   const infoArr = [
     { title: "Course Name", data: name },
@@ -37,9 +38,15 @@ const CourseGeneral = ({
   };
 
   const handleCancelClick = () => {
+    // Reset values
     setCourseName(name);
     setCourseUnits(units);
     setCourseGrade(grade);
+    // Reset errors
+    setShowCourseNameError(false);
+    setShowCourseUnitsError(false);
+    setShowExistsError(false);
+    // Set read mode
     setReadMode(true);
   };
 
@@ -48,6 +55,7 @@ const CourseGeneral = ({
 
     if (courseName === "") {
       setShowCourseNameError(true);
+      setShowExistsError(false);
       passedSave = false;
     } else {
       setShowCourseNameError(false);
@@ -55,6 +63,7 @@ const CourseGeneral = ({
 
     if (courseUnits === "") {
       setShowCourseUnitsError(true);
+      setShowExistsError(false);
       passedSave = false;
     } else {
       setShowCourseUnitsError(false);
@@ -68,25 +77,14 @@ const CourseGeneral = ({
         },
       });
 
-      // Get include information
-      const targetSemester = semesters.filter(
-        (semester) => semester.id === semesterId
-      )[0];
-      const targetCourse = targetSemester.courses.filter(
-        (course) => course.name === name
-      )[0];
-      const include = targetCourse.include;
-
       const data = {
         id: parseInt(courseId),
         semesterId,
         name: courseName,
         units: parseInt(courseUnits),
         grade: courseGrade,
-        include,
+        include: 1,
       };
-
-      console.log(data);
 
       authAxios.put("/course", data).then((res) => {
         const { result, code } = res.data;
@@ -101,7 +99,9 @@ const CourseGeneral = ({
           if (code === 3) {
             alert("Internal Server Error");
           } else if (code === 4) {
-            alert("Not authenticated");
+            return <Redirect to={{ pathname: "/login" }} />;
+          } else if (code === 5) {
+            setShowExistsError(true);
           }
         }
       });
@@ -157,6 +157,11 @@ const CourseGeneral = ({
               >
                 Invalid name.
               </p>
+              <p
+                className={showExistsError ? styles.showAlert : styles.noAlert}
+              >
+                There is an existing course.
+              </p>
             </div>
           </div>
           <hr className={styles.line} />
@@ -209,7 +214,6 @@ const CourseGeneral = ({
 const mapStateToProps = (state) => {
   return {
     conversionArr: state.conversionArr,
-    semesters: state.semesters,
   };
 };
 
