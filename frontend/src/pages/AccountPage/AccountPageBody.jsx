@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styles from "./accountPageBody.module.css";
 import { Button2 } from "../../components/Buttons/Buttons";
 import { ConversionChart } from "../../components/ConversionChart/ConversionChart";
@@ -14,6 +14,8 @@ const AccountPageBody = ({
   setUserUpdate,
   updateUserInfo,
 }) => {
+  const history = useHistory();
+
   const jwtToken = localStorage.getItem("token");
   const authAxios = axios.create({
     headers: {
@@ -105,7 +107,7 @@ const AccountPageBody = ({
           } else if (code === 3) {
             alert("Internal Server Error");
           } else if (code === 4) {
-            return <Redirect to={{ pathname: "/login" }} />;
+            history.push("/login");
           }
         }
       });

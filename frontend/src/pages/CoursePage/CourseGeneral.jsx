@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Button2 } from "../../components/Buttons/Buttons";
 import styles from "./courseGeneral.module.css";
 import { connect } from "react-redux";
@@ -11,6 +11,8 @@ const CourseGeneral = ({
   setUserUpdate,
   conversionArr,
 }) => {
+  const history = useHistory();
+
   // Initial Values
   const { id: semesterId, name, units, grade } = courseInformation;
 
@@ -99,7 +101,7 @@ const CourseGeneral = ({
           if (code === 3) {
             alert("Internal Server Error");
           } else if (code === 4) {
-            return <Redirect to={{ pathname: "/login" }} />;
+            history.push("/login");
           } else if (code === 5) {
             setShowExistsError(true);
           }

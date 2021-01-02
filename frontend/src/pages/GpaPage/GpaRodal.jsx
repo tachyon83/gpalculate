@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
 import { Button2 } from "../../components/Buttons/Buttons";
 import Rodal from "rodal";
 import axios from "axios";
 import { connect } from "react-redux";
 import styles from "./gpaRodal.module.css";
+import { useHistory } from "react-router-dom";
 
 export const NewSemester = ({
   setUserUpdate,
   showNewSemesterRodal,
   setShowNewSemesterRodal,
 }) => {
+  const history = useHistory();
+
   const [year, setYear] = useState(2020);
   const [season, setSeason] = useState(1);
 
@@ -58,7 +60,7 @@ export const NewSemester = ({
           if (code === 3) {
             alert("Internal Server Error");
           } else if (code === 4) {
-            return <Redirect to={{ pathname: "/login" }} />;
+            history.push("/login");
           } else if (code === 5) {
             setShowExistsError(true);
           }
@@ -124,6 +126,8 @@ const NewCourse = ({
   semesterId,
   conversionArr,
 }) => {
+  const history = useHistory();
+
   const [name, setName] = useState("");
   const [units, setUnits] = useState("");
   const [grade, setGrade] = useState(conversionArr[0].letter);
@@ -194,7 +198,7 @@ const NewCourse = ({
           if (code === 3) {
             alert("Internal Server Error");
           } else if (code === 4) {
-            return <Redirect to={{ pathname: "/login" }} />;
+            history.push("/login");
           } else if (code === 5) {
             setShowExistsError(true);
           }
@@ -292,6 +296,8 @@ export const EditAssessment = ({
   setShowAssessmentRodal,
   setUserUpdate,
 }) => {
+  const history = useHistory();
+
   // Original Values
   const {
     id: assessmentId,
@@ -351,7 +357,7 @@ export const EditAssessment = ({
         if (code === 3) {
           alert("Internal Server Error");
         } else if (code === 4) {
-          return <Redirect to={{ pathname: "/login" }} />;
+          history.push("/login");
         }
       }
     });
@@ -443,7 +449,7 @@ export const EditAssessment = ({
           if (code === 3) {
             alert("Internal Server Error");
           } else if (code === 4) {
-            return <Redirect to={{ pathname: "/login" }} />;
+            history.push("/login");
           } else if (code === 5) {
             setShowExistsError(true);
           }
@@ -561,6 +567,8 @@ export const NewAssessment = ({
   setShowNewAssessmentRodal,
   setUserUpdate,
 }) => {
+  const history = useHistory();
+
   // Values
   const [name, setName] = useState("");
   const [receivedScore, setReceivedScore] = useState("");
@@ -670,7 +678,7 @@ export const NewAssessment = ({
           if (code === 3) {
             alert("Internal Server Error");
           } else if (code === 4) {
-            return <Redirect to={{ pathname: "/login" }} />;
+            history.push("/login");
           } else if (code === 5) {
             setShowExistsError(true);
           }

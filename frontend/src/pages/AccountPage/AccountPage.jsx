@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import SideBar from "../../components/SideBar/SideBar";
 import Nav2 from "../../components/Nav2/Nav2";
 import AccountPageBody from "./AccountPageBody";
@@ -7,6 +7,8 @@ import axios from "axios";
 import styles from "./accountPage.module.css";
 
 export const AccountPage = () => {
+  const history = useHistory();
+
   const [userData, setUserData] = useState(null);
   const [conversionTypes, setConversionTypes] = useState(null);
 
@@ -28,7 +30,7 @@ export const AccountPage = () => {
         if (code === 3) {
           alert("Internal Server Error");
         } else if (code === 4) {
-          return <Redirect to={{ pathname: "/login" }} />;
+          history.push("/login");
         }
       }
     });
@@ -45,7 +47,7 @@ export const AccountPage = () => {
         if (code === 3) {
           alert("Internal Server Error");
         } else if (code === 4) {
-          return <Redirect to={{ pathname: "/login" }} />;
+          history.push("/login");
         }
       }
     });

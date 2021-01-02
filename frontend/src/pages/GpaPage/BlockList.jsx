@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Block from "../../components/Block/Block";
 import axios from "axios";
 import { connect } from "react-redux";
 import { setSemesters } from "../../redux";
 
 const BlockList = ({ setSemesters, userUpdate, setUserUpdate }) => {
+  const history = useHistory();
+
   const [semesterInfo, setSemesterInfo] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -29,7 +31,7 @@ const BlockList = ({ setSemesters, userUpdate, setUserUpdate }) => {
           if (code === 3) {
             alert("Internal Server error");
           } else if (code === 4) {
-            return <Redirect to={{ pathname: "/login" }} />;
+            history.push("/login");
           }
         }
       })

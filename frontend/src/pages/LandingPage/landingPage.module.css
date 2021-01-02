@@ -34,6 +34,14 @@
 .getStartedBtn {
   margin-top: 8em;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 15px;
+  -webkit-transition: margin 0.5s ease-out;
+  -moz-transition: margin 0.5s ease-out;
+  -o-transition: margin 0.5s ease-out;
+  transition: 0.5s;
+}
+
+.getStartedBtn:hover {
+  transform: translatey(-10px);
 }
 
 .previewImg {
