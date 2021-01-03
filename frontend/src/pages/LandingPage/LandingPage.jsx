@@ -46,7 +46,7 @@ const bottomDescription = [
   {
     title: "Visually see records",
     description:
-      "Gpalculate automatically calculates and shows records visually. Export your records as a pdf file for later use.",
+      "Gpalculate automatically calculates and updates your records.",
   },
 ];
 

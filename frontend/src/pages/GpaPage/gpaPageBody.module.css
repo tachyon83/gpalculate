@@ -9,3 +9,25 @@
   text-align: right;
   margin-bottom: 3em;
 }
+
+.buttonContainer .saveButton {
+  margin-right: 2em;
+}
+
+.alertContainer {
+  width: 85%;
+  margin: auto;
+  margin-bottom: 2em;
+}
+
+.showAlert {
+  width: 85%;
+  color: #03bd93;
+  font-size: 15px;
+  margin: 0;
+  margin-top: 0.5em;
+}
+
+.noAlert {
+  display: none;
+}
