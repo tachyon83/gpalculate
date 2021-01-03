@@ -3,6 +3,7 @@ import Nav2 from "../../components/Nav2/Nav2";
 import { Button3 } from "../../components/Buttons/Buttons";
 import CourseGeneral from "./CourseGeneral";
 import { CourseDetails } from "./CourseDetails";
+import { Loading } from "../../components/Loading/Loading";
 import { useParams, useHistory } from "react-router-dom";
 import { numToSeason } from "../../global";
 import styles from "./coursePageBody.module.css";
@@ -83,7 +84,7 @@ export const CoursePageBody = () => {
     <div className={styles.container}>
       <Nav2 />
       {loading ? (
-        <div>Loading...</div>
+        <Loading />
       ) : (
         <div className={styles.body}>
           <Button3

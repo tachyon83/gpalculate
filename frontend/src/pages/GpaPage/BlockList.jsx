@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Block from "../../components/Block/Block";
+import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
 import { connect } from "react-redux";
 import { setSemesters } from "../../redux";
@@ -53,7 +54,7 @@ const BlockList = ({ setSemesters, userUpdate, setUserUpdate }) => {
   }, [userUpdate]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   } else {
     return (
       <div>

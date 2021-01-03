@@ -5,6 +5,7 @@ import Nav2 from "../../components/Nav2/Nav2";
 import AccountPageBody from "./AccountPageBody";
 import axios from "axios";
 import styles from "./accountPage.module.css";
+import { Loading } from "../../components/Loading/Loading";
 
 export const AccountPage = () => {
   const history = useHistory();
@@ -71,7 +72,7 @@ export const AccountPage = () => {
       />
     );
   } else {
-    container = <div>Loading...</div>;
+    container = <Loading />;
   }
 
   return (
