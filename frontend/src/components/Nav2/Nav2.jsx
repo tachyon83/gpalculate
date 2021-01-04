@@ -17,6 +17,7 @@ const Nav2 = ({ logout }) => {
     <nav className={styles.nav}>
       <Link to="/gpa">GPA</Link>
       <Link to="/account">My Account</Link>
+      <Link to="/announcements">Announcements</Link>
       <button onClick={handleLogout}>Logout</button>
     </nav>
   );

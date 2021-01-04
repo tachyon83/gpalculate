@@ -5,9 +5,9 @@ import axios from "axios";
 import { Redirect, useLocation } from "react-router-dom";
 import { emailPass, passwordPass } from "../../global";
 import { connect } from "react-redux";
-import { setConversion } from "../../redux";
+import { setConversion, setHelp } from "../../redux";
 
-const LoginForm = ({ setConversion }) => {
+const LoginForm = ({ setConversion, setHelp }) => {
   const [redirectToReferrer, setRedirectToReferrer] = useState(false);
   const { state } = useLocation();
 
@@ -56,12 +56,13 @@ const LoginForm = ({ setConversion }) => {
       axios
         .post("/user/login", data)
         .then((res) => {
-          console.log(res.data);
           const { result, code, data } = res.data;
           setLoginSubmitCode(code);
           if (result) {
-            localStorage.setItem("token", data.token);
-            setConversion(data.conversionArr, data.conversion);
+            const { token, conversionArr, conversion, help } = data;
+            localStorage.setItem("token", token);
+            setConversion(conversionArr, conversion);
+            setHelp(help);
             setRedirectToReferrer(true);
           }
         })
@@ -122,6 +123,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setConversion: (conversionArr, conversion) =>
       dispatch(setConversion(conversionArr, conversion)),
+    setHelp: (help) => dispatch(setHelp(help)),
   };
 };
 

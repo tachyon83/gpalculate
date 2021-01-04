@@ -11,6 +11,7 @@ import { GpaPage } from "./pages/GpaPage/GpaPage";
 import { CoursePage } from "./pages/CoursePage/CoursePage";
 import { AccountPage } from "./pages/AccountPage/AccountPage";
 import { AboutPage } from "./pages/AboutPage/AboutPage";
+import { AnnouncementPage } from "./pages/AnnouncementPage/AnnouncementPage";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
 import store from "./redux/store";
 import { Provider } from "react-redux";
@@ -74,6 +75,7 @@ function App() {
               <AccountPage />
             </PrivateRoute>
             <Route path="/about" component={AboutPage} />
+            <Route path="/announcements" component={AnnouncementPage} />
             <Route component={NotFoundPage} />
           </Switch>
         </Router>

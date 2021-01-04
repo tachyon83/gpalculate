@@ -25,6 +25,7 @@ const Nav = ({ logout }) => {
       <>
         <button onClick={handleLogout}>Logout</button>
         <Link to="/gpa">GPA</Link>
+        <Link to="/announcements">Announcements</Link>
         <Link to="/about">About</Link>
       </>
     );
@@ -33,6 +34,7 @@ const Nav = ({ logout }) => {
       <>
         <Link to="/login">Login</Link>
         <Link to="/signUp">Sign Up</Link>
+        <Link to="/announcements">Announcements</Link>
         <Link to="/about">About</Link>
       </>
     );

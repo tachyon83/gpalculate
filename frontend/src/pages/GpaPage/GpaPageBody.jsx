@@ -1,19 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Nav2 from "../../components/Nav2/Nav2";
 import BlockList from "./BlockList";
 import { Button3 } from "../../components/Buttons/Buttons";
 import styles from "./gpaPageBody.module.css";
 import { NewSemester } from "./GpaRodal";
+import NeedHelp from "./NeedHelp";
 import axios from "axios";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "rodal/lib/rodal.css";
 
-const GpaPageBody = ({ semesters }) => {
+const GpaPageBody = ({ semesters, needHelp, showHelp }) => {
   const history = useHistory();
   const [userUpdate, setUserUpdate] = useState(false);
   const [showNewSemesterRodal, setShowNewSemesterRodal] = useState(false);
   const [showSaveSuccess, setShowSaveSuccess] = useState(false);
+  const [showHelpModal, setShowHelpModal] = useState(needHelp && !showHelp);
 
   const handleSave = () => {
     let newSemesters = [];
@@ -74,6 +76,10 @@ const GpaPageBody = ({ semesters }) => {
         showNewSemesterRodal={showNewSemesterRodal}
         setShowNewSemesterRodal={setShowNewSemesterRodal}
       />
+      <NeedHelp
+        showHelpModal={showHelpModal}
+        setShowHelpModal={setShowHelpModal}
+      />
     </div>
   );
 };
@@ -81,6 +87,8 @@ const GpaPageBody = ({ semesters }) => {
 const mapStateToProps = (state) => {
   return {
     semesters: state.semesters,
+    needHelp: state.needHelp,
+    showHelp: state.showHelp,
   };
 };
 

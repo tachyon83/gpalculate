@@ -3,12 +3,16 @@ import {
   SET_CONVERSION,
   SET_SEMESTERS,
   TOGGLE_COURSE,
+  SET_HELP,
+  SHOW_HELP,
 } from "./types.js";
 
 const initialState = {
   conversionArr: [],
   conversion: {},
   semesters: [],
+  needHelp: null,
+  showHelp: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -55,6 +59,19 @@ const reducer = (state = initialState, action) => {
           // 찾고있는 semester가 아닐 경우
           return semester;
         }),
+      };
+
+    case SET_HELP:
+      const needHelp = action.payload.help === 1 ? true : false;
+      return {
+        ...state,
+        needHelp,
+      };
+
+    case SHOW_HELP:
+      return {
+        ...state,
+        showHelp: true,
       };
 
     default:
