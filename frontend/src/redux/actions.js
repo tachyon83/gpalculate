@@ -5,6 +5,7 @@ import {
   TOGGLE_COURSE,
   SET_HELP,
   SHOW_HELP,
+  SET_ADMIN,
 } from "./types";
 
 export const logout = () => {
@@ -61,5 +62,14 @@ export const setHelp = (help) => {
 export const showHelp = () => {
   return {
     type: SHOW_HELP,
+  };
+};
+
+export const setAdmin = (isAdmin) => {
+  return {
+    type: SET_ADMIN,
+    payload: {
+      isAdmin,
+    },
   };
 };

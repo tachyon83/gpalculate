@@ -9,3 +9,5 @@ export const TOGGLE_COURSE = "TOGGLE_COURSE";
 export const SET_HELP = "SET_HELP";
 
 export const SHOW_HELP = "SHOW_HELP";
+
+export const SET_ADMIN = "SET_ADMIN";

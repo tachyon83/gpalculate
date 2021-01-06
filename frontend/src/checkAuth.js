@@ -1,4 +1,5 @@
 import decode from "jwt-decode";
+import store from "./redux/store";
 
 export const checkAuth = () => {
   const token = localStorage.getItem("token");
@@ -22,3 +23,12 @@ export const checkAuth = () => {
   // Have token & Not expired
   return true;
 };
+
+export const checkAdmin = () => {
+  // const isLoggedIn = checkAuth();
+  // const isAdmin = store.getState().isAdmin;
+  // return isLoggedIn && isAdmin;
+  return true;
+};
+
+store.subscribe(checkAdmin);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Nav2 from "../../components/Nav2/Nav2";
 import BlockList from "./BlockList";
 import { Button3 } from "../../components/Buttons/Buttons";

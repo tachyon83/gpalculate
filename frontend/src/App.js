@@ -13,11 +13,12 @@ import { AccountPage } from "./pages/AccountPage/AccountPage";
 import { AboutPage } from "./pages/AboutPage/AboutPage";
 import { AnnouncementPage } from "./pages/AnnouncementPage/AnnouncementPage";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
+import { AdminPage } from "./pages/AdminPage/AdminPage";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
-import { checkAuth } from "./checkAuth";
+import { checkAuth, checkAdmin } from "./checkAuth";
 import "./App.css";
 
 import axios from "axios";
@@ -29,7 +30,9 @@ function PrivateRoute({ children, ...rest }) {
     <Route
       {...rest}
       render={({ location }) => {
-        return checkAuth() ? (
+        return checkAdmin() ? (
+          <Redirect to={{ pathname: "/admin" }} />
+        ) : checkAuth() ? (
           children
         ) : (
           <Redirect to={{ pathname: "/login", state: { from: location } }} />
@@ -43,8 +46,25 @@ function NonuserRoute({ children, ...rest }) {
   return (
     <Route
       {...rest}
-      render={({ location }) => {
+      render={() => {
         return checkAuth() ? <Redirect to={{ pathname: "/gpa" }} /> : children;
+      }}
+    />
+  );
+}
+
+function AdminRoute({ children, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={({ location }) => {
+        return checkAdmin() ? (
+          children
+        ) : checkAuth() ? (
+          <Redirect to={{ pathname: "/gpa" }} />
+        ) : (
+          <Redirect to={{ pathname: "/login", state: { from: location } }} />
+        );
       }}
     />
   );
@@ -76,6 +96,10 @@ function App() {
             </PrivateRoute>
             <Route path="/about" component={AboutPage} />
             <Route path="/announcements" component={AnnouncementPage} />
+            {/* <Route path="/admin" component={AdminPage} /> */}
+            <AdminRoute path="/admin">
+              <AdminPage />
+            </AdminRoute>
             <Route component={NotFoundPage} />
           </Switch>
         </Router>

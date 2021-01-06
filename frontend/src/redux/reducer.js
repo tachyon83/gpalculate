@@ -5,6 +5,7 @@ import {
   TOGGLE_COURSE,
   SET_HELP,
   SHOW_HELP,
+  SET_ADMIN,
 } from "./types.js";
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   semesters: [],
   needHelp: null,
   showHelp: false,
+  isAdmin: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -72,6 +74,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         showHelp: true,
+      };
+
+    case SET_ADMIN:
+      return {
+        ...state,
+        isAdmin: action.payload.help === 1 ? true : false,
       };
 
     default:

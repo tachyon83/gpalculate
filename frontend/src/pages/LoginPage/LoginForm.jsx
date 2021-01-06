@@ -5,10 +5,11 @@ import axios from "axios";
 import { Redirect, useLocation } from "react-router-dom";
 import { emailPass, passwordPass } from "../../global";
 import { connect } from "react-redux";
-import { setConversion, setHelp } from "../../redux";
+import { setConversion, setHelp, setAdmin } from "../../redux";
 
-const LoginForm = ({ setConversion, setHelp }) => {
+const LoginForm = ({ setConversion, setHelp, setAdmin }) => {
   const [redirectToReferrer, setRedirectToReferrer] = useState(false);
+  const [redirectAsAdmin, setRedirectAsAdmin] = useState(false);
   const { state } = useLocation();
 
   const [email, setEmail] = useState("");
@@ -59,10 +60,12 @@ const LoginForm = ({ setConversion, setHelp }) => {
           const { result, code, data } = res.data;
           setLoginSubmitCode(code);
           if (result) {
-            const { token, conversionArr, conversion, help } = data;
+            const { token, conversionArr, conversion, help, isAdmin } = data;
             localStorage.setItem("token", token);
             setConversion(conversionArr, conversion);
             setHelp(help);
+            setAdmin(isAdmin);
+            setRedirectAsAdmin(isAdmin === 1);
             setRedirectToReferrer(true);
           }
         })
@@ -72,8 +75,12 @@ const LoginForm = ({ setConversion, setHelp }) => {
     }
   };
 
-  if (redirectToReferrer === true) {
-    return <Redirect to={state?.from || "/gpa"} />;
+  if (redirectToReferrer) {
+    if (redirectAsAdmin) {
+      return <Redirect to={state?.from || "/admin"} />;
+    } else {
+      return <Redirect to={state?.from || "/gpa"} />;
+    }
   }
 
   let loginSubmitFailure;
@@ -124,6 +131,7 @@ const mapDispatchToProps = (dispatch) => {
     setConversion: (conversionArr, conversion) =>
       dispatch(setConversion(conversionArr, conversion)),
     setHelp: (help) => dispatch(setHelp(help)),
+    setAdmin: (isAdmin) => dispatch(setAdmin(isAdmin)),
   };
 };
 
