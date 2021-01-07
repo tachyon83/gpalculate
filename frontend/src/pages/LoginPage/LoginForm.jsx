@@ -62,10 +62,14 @@ const LoginForm = ({ setConversion, setHelp, setAdmin }) => {
           if (result) {
             const { token, conversionArr, conversion, help, isAdmin } = data;
             localStorage.setItem("token", token);
-            setConversion(conversionArr, conversion);
-            setHelp(help);
             setAdmin(isAdmin);
-            setRedirectAsAdmin(isAdmin === 1);
+            if (isAdmin === 0) {
+              setConversion(conversionArr, conversion);
+              setHelp(help);
+              setRedirectAsAdmin(false);
+            } else {
+              setRedirectAsAdmin(true);
+            }
             setRedirectToReferrer(true);
           }
         })

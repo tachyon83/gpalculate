@@ -30,7 +30,8 @@ export const AnnouncementPage = () => {
       <Nav />
       <div className={styles.container}>
         <p className={styles.title}>Announcements</p>
-        {announcements ? (
+        {announcements === null && <p>Loading...</p>}
+        {announcements && announcements.length > 0 ? (
           <ul>
             {announcements.map((announcement) => (
               <li key={announcement.id} className={styles.list}>

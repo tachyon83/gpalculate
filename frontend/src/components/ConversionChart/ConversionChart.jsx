@@ -7,7 +7,7 @@ export const ConversionChart = ({ conversionArr, columnNum, cn }) => {
       <div className={styles.conversionNumber}>
         {conversionArr.slice(startIndex, endIndex).map((single) => (
           <p key={`${single.number}-${single.letter}-1`}>
-            {single.number.toFixed(1)}
+            {single.number ? single.number.toFixed(1) : "N/A"}
           </p>
         ))}
       </div>

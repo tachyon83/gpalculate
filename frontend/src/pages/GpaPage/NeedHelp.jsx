@@ -20,6 +20,7 @@ const NeedHelp = ({ showHelpModal, setShowHelpModal, showHelp }) => {
 
   const handleClose = () => {
     showHelp();
+    setShowHelpModal(false);
     if (dontShow) {
       const jwtToken = localStorage.getItem("token");
       const authAxios = axios.create({
@@ -39,7 +40,6 @@ const NeedHelp = ({ showHelpModal, setShowHelpModal, showHelp }) => {
         }
       });
     }
-    setShowHelpModal(false);
   };
 
   return (

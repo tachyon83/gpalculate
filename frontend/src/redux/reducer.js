@@ -79,7 +79,7 @@ const reducer = (state = initialState, action) => {
     case SET_ADMIN:
       return {
         ...state,
-        isAdmin: action.payload.help === 1 ? true : false,
+        isAdmin: action.payload.isAdmin === 1 ? true : false,
       };
 
     default:

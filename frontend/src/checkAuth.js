@@ -25,10 +25,9 @@ export const checkAuth = () => {
 };
 
 export const checkAdmin = () => {
-  // const isLoggedIn = checkAuth();
-  // const isAdmin = store.getState().isAdmin;
-  // return isLoggedIn && isAdmin;
-  return true;
+  const isLoggedIn = checkAuth();
+  const isAdmin = store.getState().isAdmin;
+  return isLoggedIn && isAdmin;
 };
 
 store.subscribe(checkAdmin);

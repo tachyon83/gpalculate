@@ -1,0 +1,33 @@
+.form {
+  width: 100%;
+  display: flex;
+  margin-bottom: 4em;
+}
+
+.form input {
+  flex: 6;
+  margin-right: 3em;
+}
+
+.form button {
+  flex: 1;
+}
+
+.row {
+  display: flex;
+  margin: 1.5em 0;
+}
+
+.row p {
+  margin: 0;
+  flex: 2;
+}
+
+.button {
+  height: 2.5em;
+  flex: 1;
+}
+
+.searchButton {
+  font-size: 13px;
+}

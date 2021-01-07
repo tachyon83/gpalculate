@@ -7,7 +7,7 @@ import { checkAuth } from "../../checkAuth";
 import { connect } from "react-redux";
 import { logout } from "../../redux";
 
-const Nav = ({ logout }) => {
+const Nav = ({ logout, isAdmin }) => {
   const [loggedIn, setLoggedIn] = useState(checkAuth());
   let history = useHistory();
 
@@ -20,7 +20,15 @@ const Nav = ({ logout }) => {
 
   let navElement;
 
-  if (loggedIn) {
+  if (isAdmin) {
+    navElement = (
+      <>
+        <button onClick={handleLogout}>Logout</button>
+        <Link to="/announcements">Announcements</Link>
+        <Link to="/about">About</Link>
+      </>
+    );
+  } else if (loggedIn) {
     navElement = (
       <>
         <button onClick={handleLogout}>Logout</button>
@@ -57,10 +65,16 @@ const Nav = ({ logout }) => {
   );
 };
 
+const mapStateToProps = (state) => {
+  return {
+    isAdmin: state.isAdmin,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(logout()),
   };
 };
 
-export default connect(null, mapDispatchToProps)(Nav);
+export default connect(mapStateToProps, mapDispatchToProps)(Nav);

@@ -1,0 +1,90 @@
+.container {
+  padding: 1.5em;
+}
+
+.title {
+  background: linear-gradient(60deg, #03bd93 0%, rgba(3, 155, 163, 1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+  /* margin-bottom: 1.5em; */
+}
+
+.row {
+  display: flex;
+  margin-bottom: 1em;
+}
+
+.row .rowLabel {
+  flex: 1;
+  font-size: 14px;
+}
+
+.row .rowData {
+  flex: 2;
+}
+
+.rowData input,
+.rowData textarea {
+  width: 100%;
+}
+
+.showAlert {
+  color: #db4437;
+  font-size: 13px;
+  margin: 0;
+  margin-top: 0.5em;
+}
+
+.noAlert {
+  display: none;
+}
+
+.buttonContainer {
+  text-align: right;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-bottom: 2em;
+  margin-right: 2em;
+}
+
+.buttonContainer button {
+  width: 100px;
+  padding: 0.5em 1.5em;
+}
+
+.cancelButton {
+  margin-right: 2em;
+}
+
+.announcementForm {
+  margin-top: 1.5em;
+}
+
+.conversionForm {
+  display: flex;
+}
+
+.conversionForm div {
+  padding-right: 1em;
+}
+
+.row .rowLetter {
+  flex: 1;
+  font-size: 14px;
+  margin-right: 1em;
+}
+
+.rowNumber {
+  width: 8em;
+  flex: 1;
+  font-size: 14px;
+}
+
+.description {
+  font-size: 13px;
+  color: #929292;
+  margin-top: 0.5em;
+  margin-bottom: 3em;
+}
