@@ -14,3 +14,17 @@
 .description {
   color: #5e5e5e;
 }
+
+@media (max-width: 800px) {
+  .container {
+    margin-bottom: 4em;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .description {
+    font-size: 15px;
+  }
+}

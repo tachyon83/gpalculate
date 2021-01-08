@@ -62,3 +62,17 @@
 .noAlert {
   display: none;
 }
+
+@media (max-width: 700px) {
+  .row {
+    display: block;
+  }
+
+  .row .rowTitle {
+    margin-bottom: 1em;
+  }
+
+  .line {
+    margin-top: 1em;
+  }
+}

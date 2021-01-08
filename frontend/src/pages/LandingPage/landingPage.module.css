@@ -47,7 +47,11 @@
 .previewImg {
   margin-top: 3em;
   border-top-left-radius: 20px;
-  width: 40%;
+  /* display: block; */
+  max-width: 40%;
+  width: auto;
+  height: auto;
+  /* width: 40%; */
   float: right;
   box-shadow: rgba(100, 100, 111, 0.2) 0px -3px 29px 0px;
   user-select: none;
@@ -73,4 +77,54 @@
 .bottomDescription {
   display: flex;
   margin: 4em 8em;
+}
+
+@media (max-width: 1060px) {
+  .top {
+    margin-top: 6em;
+  }
+
+  .topLeft {
+    margin-left: 10%;
+  }
+
+  .description {
+    padding-right: 2em;
+  }
+
+  .bottomTitle {
+    margin: 0 7em;
+  }
+
+  .bottomDescription {
+    margin: 4em;
+  }
+}
+
+@media (max-width: 800px) {
+  .top {
+    display: block;
+  }
+
+  .getStartedBtn {
+    margin-top: 4em;
+  }
+
+  .previewImg {
+    display: none;
+  }
+
+  .bottom {
+    margin-top: 15em;
+  }
+
+  .bottomTitle {
+    font-size: 1.3em;
+    margin: 0 3em 2em 3em;
+  }
+
+  .bottomDescription {
+    display: block;
+    margin: 4em 2em 0em 2em;
+  }
 }

@@ -29,18 +29,24 @@
 }
 
 .body {
-  display: flex;
-  justify-content: space-between;
+  /* display: flex; */
+  /* justify-content: space-between; */
 }
 
 .body ul {
   margin: 0;
   width: 70%;
+  margin-top: -3em;
 }
 
 .button {
+  text-align: right;
+}
+
+.button button {
   width: 150px;
   height: 2.5em;
+  margin-bottom: 3em;
 }
 
 .divRow {
@@ -54,4 +60,30 @@
 
 .conversion {
   font-size: 14px;
+  width: 50%;
+}
+
+@media (max-width: 1060px) {
+  .container {
+    margin-top: 6em;
+  }
+
+  .divRow {
+    display: block;
+  }
+
+  .conversion {
+    margin-bottom: 2em;
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .button {
+    text-align: left;
+  }
+
+  .body ul {
+    margin-top: 0em;
+  }
 }

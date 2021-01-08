@@ -5,6 +5,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import styles from "./gpaRodal.module.css";
 import { useHistory } from "react-router-dom";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 export const NewSemester = ({
   setUserUpdate,
@@ -132,6 +133,8 @@ const NewCourse = ({
   const [units, setUnits] = useState("");
   const [grade, setGrade] = useState(conversionArr[0].letter);
 
+  const { width } = useWindowDimensions();
+
   const [showNameError, setShowNameError] = useState(false);
   const [showUnitsError, setShowUnitsError] = useState(false);
 
@@ -211,7 +214,7 @@ const NewCourse = ({
     <Rodal
       visible={showNewCourseRodal}
       onClose={handleCancelClick}
-      width={500}
+      width={width > 600 ? 500 : 400}
       height={300}
     >
       <div className={styles.container}>
@@ -319,6 +322,8 @@ export const EditAssessment = ({
   const [showTotalScoreError, setShowTotalScoreError] = useState(false);
   const [showWeightError, setShowWeightError] = useState(false);
   const [showExistsError, setShowExistsError] = useState(false);
+
+  const { width } = useWindowDimensions();
 
   // Axios
   const jwtToken = localStorage.getItem("token");
@@ -462,7 +467,7 @@ export const EditAssessment = ({
     <Rodal
       visible={showAssessmentRodal}
       onClose={handleCancelClick}
-      width={550}
+      width={width > 630 ? 550 : 400}
       height={380}
     >
       <div className={styles.container}>
@@ -568,6 +573,8 @@ export const NewAssessment = ({
   setUserUpdate,
 }) => {
   const history = useHistory();
+
+  const { width } = useWindowDimensions();
 
   // Values
   const [name, setName] = useState("");
@@ -691,7 +698,7 @@ export const NewAssessment = ({
     <Rodal
       visible={showNewAssessmentRodal}
       onClose={handleCancelClick}
-      width={550}
+      width={width > 650 ? 550 : 400}
       height={380}
     >
       <div className={styles.container}>

@@ -19,3 +19,14 @@
   margin-bottom: 2em;
   font-size: 20px;
 }
+
+/* 769px — 1024px: Small screens, laptops */
+@media (max-width: 1024px) {
+  body {
+    display: block;
+  }
+
+  .leftBody {
+    display: none;
+  }
+}

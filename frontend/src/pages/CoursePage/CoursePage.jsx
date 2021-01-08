@@ -6,7 +6,7 @@ import styles from "./coursePage.module.css";
 export const CoursePage = () => {
   return (
     <div className={styles.body}>
-      <SideBar />
+      <SideBar cn={styles.sidebar} />
       <CoursePageBody />
     </div>
   );

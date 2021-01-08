@@ -33,7 +33,7 @@ export const User = ({ user, setUserUpdate }) => {
 
   return (
     <div className={styles.row}>
-      <p>{email}</p>
+      <p className={styles.email}>{email}</p>
       <p>{name}</p>
       <p>{conversionid}</p>
       <Button2 text="Delete" cn={styles.button} onClick={deleteUser} />

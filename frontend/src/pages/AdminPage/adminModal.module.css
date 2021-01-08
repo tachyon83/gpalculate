@@ -88,3 +88,9 @@
   margin-top: 0.5em;
   margin-bottom: 3em;
 }
+
+@media (max-width: 650px) {
+  .rowNumber {
+    width: 4em;
+  }
+}

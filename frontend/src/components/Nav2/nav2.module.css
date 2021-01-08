@@ -32,3 +32,37 @@
 .nav button:hover {
   color: #5e5e5e;
 }
+
+@media (max-width: 1024px) {
+  .nav {
+    width: 100%;
+    background: linear-gradient(120deg, #03b09a 0%, #02bd92 100%);
+    text-align: right;
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+
+  .nav button {
+    margin-right: 3em;
+  }
+
+  .nav a,
+  .nav button {
+    color: white;
+  }
+
+  .nav a:hover,
+  .nav button:hover {
+    color: #b9b9b9;
+  }
+}
+
+@media (max-width: 650px) {
+  .nav {
+    text-align: center;
+  }
+
+  .nav button {
+    margin-right: 0;
+  }
+}

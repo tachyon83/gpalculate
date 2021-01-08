@@ -6,7 +6,7 @@ import styles from "./gpaPage.module.css";
 export const GpaPage = () => {
   return (
     <div className={styles.body}>
-      <SideBar />
+      <SideBar cn={styles.sidebar} />
       <GpaPageBody />
     </div>
   );

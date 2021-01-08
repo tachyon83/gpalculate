@@ -53,9 +53,9 @@ const Summary = ({ conversionArr, conversion, semesters }) => {
   );
 };
 
-const SideBar = ({ conversionArr, conversion, semesters }) => {
+const SideBar = ({ conversionArr, conversion, semesters, cn }) => {
   return (
-    <div className={styles.sideBar}>
+    <div className={`${styles.sideBar} ${cn}`}>
       <Link to="/">
         <img src={logo} alt="logo" className={styles.logoImage} />
       </Link>

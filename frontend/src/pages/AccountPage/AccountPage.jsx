@@ -77,7 +77,7 @@ export const AccountPage = () => {
 
   return (
     <div className={styles.body}>
-      <SideBar />
+      <SideBar cn={styles.leftBody} />
       <div className={styles.rightBody}>
         <Nav2 />
         <div className={styles.accountBody}>

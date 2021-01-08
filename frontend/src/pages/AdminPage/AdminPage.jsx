@@ -105,6 +105,7 @@ export const AdminPage = () => {
             conversionArr={conversion[i].conversion}
             columnNum={4}
             key={conversion[i].id}
+            cn={styles.conversion}
           />
         </>
       );
@@ -150,23 +151,27 @@ export const AdminPage = () => {
         <div className={styles.block}>
           <p className={styles.subTitle}>Current Announcements</p>
           <div className={styles.body}>
+            <div className={styles.button}>
+              <Button2
+                text="New Announcement"
+                onClick={handleNewAnnouncement}
+              />
+            </div>
             <ul>
               {!announcements.length && <li>Currently no announcements</li>}
               {announcements.map((announcement) => (
                 <li key={announcement.id}>{announcement.message}</li>
               ))}
             </ul>
-            <Button2
-              text="New Announcement"
-              cn={styles.button}
-              onClick={handleNewAnnouncement}
-            />
           </div>
         </div>
         {/* Current Conversion */}
         <div className={styles.block}>
           <p className={styles.subTitle}>Current Conversion</p>
           <div className={styles.body}>
+            <div className={styles.button}>
+              <Button2 text="New Conversion" onClick={handleNewConversion} />
+            </div>
             <div>
               {conversionDivArr.map((div, i) => (
                 <div key={i} className={styles.divRow}>
@@ -174,14 +179,9 @@ export const AdminPage = () => {
                 </div>
               ))}
             </div>
-            <Button2
-              text="New Conversion"
-              cn={styles.button}
-              onClick={handleNewConversion}
-            />
           </div>
         </div>
-        {/* Current Conversion */}
+        {/* Search Users */}
         <div className={styles.block}>
           <p className={styles.subTitle}>Search Users</p>
           <AdminUsers />

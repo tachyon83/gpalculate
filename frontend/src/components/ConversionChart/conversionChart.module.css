@@ -27,3 +27,14 @@
   -webkit-text-fill-color: transparent;
   margin-right: 1em;
 }
+
+@media (max-width: 500px) {
+  .conversionNumber {
+    margin-left: 1em;
+    margin-right: 0.5em;
+  }
+
+  .conversionLetter {
+    margin-right: 0.5em;
+  }
+}

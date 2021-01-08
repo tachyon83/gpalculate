@@ -23,6 +23,10 @@
   flex: 2;
 }
 
+.row .email {
+  flex: 3;
+}
+
 .button {
   height: 2.5em;
   flex: 1;

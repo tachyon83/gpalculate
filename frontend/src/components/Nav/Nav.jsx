@@ -56,7 +56,7 @@ const Nav = ({ logout, isAdmin }) => {
         alt="background"
       />
       <div className={styles.navDiv}>
-        <Link to="/">
+        <Link to="/" className={styles.logoImageContainer}>
           <img src={logo} alt="logo" className={styles.logoImage} />
         </Link>
         <nav className={styles.nav}>{navElement}</nav>

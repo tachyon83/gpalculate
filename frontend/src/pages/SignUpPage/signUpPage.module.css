@@ -2,3 +2,16 @@
   margin: 0 auto;
   width: 40%;
 }
+
+@media (max-width: 1060px) {
+  .body {
+    margin-top: 6em;
+    width: 60%;
+  }
+}
+
+@media (max-width: 650px) {
+  .body {
+    width: 70%;
+  }
+}

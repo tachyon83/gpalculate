@@ -9,10 +9,13 @@ import newSemImage from "../../assets/newSemester.gif";
 import newCourseImage from "../../assets/newCourse.gif";
 import editCourseImage from "../../assets/editCourse.gif";
 import newAssessmentImage from "../../assets/newAssessment.gif";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 const NeedHelp = ({ showHelpModal, setShowHelpModal, showHelp }) => {
   const [dontShow, setDontShow] = useState(false);
   const history = useHistory();
+
+  const { width } = useWindowDimensions();
 
   const handleCheckboxClick = () => {
     setDontShow((prev) => !prev);
@@ -46,7 +49,7 @@ const NeedHelp = ({ showHelpModal, setShowHelpModal, showHelp }) => {
     <Rodal
       visible={showHelpModal}
       onClose={handleClose}
-      width={1000}
+      width={width > 500 ? width * 0.8 : 400}
       height={600}
     >
       <div className={styles.container}>

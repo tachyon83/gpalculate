@@ -4,6 +4,7 @@ import { Button2 } from "../../components/Buttons/Buttons";
 import styles from "./adminModal.module.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 export const AnnouncementModal = ({
   showAnnouncementModal,
@@ -12,6 +13,7 @@ export const AnnouncementModal = ({
 }) => {
   const history = useHistory();
   const currentTime = new Date();
+  const { width } = useWindowDimensions();
 
   const [announcement, setAnnouncement] = useState({
     message: "",
@@ -69,7 +71,7 @@ export const AnnouncementModal = ({
     <Rodal
       visible={showAnnouncementModal}
       onClose={handleCancelClick}
-      width={495}
+      width={width > 630 ? 495 : 400}
       height={342}
     >
       <div className={styles.container}>
@@ -137,7 +139,6 @@ export const ConversionModal = ({
     "D-": "",
     F: "",
   });
-
   const conversionOrder = [
     "A+",
     "A",
@@ -153,6 +154,7 @@ export const ConversionModal = ({
     "D-",
     "F",
   ];
+  const { width } = useWindowDimensions();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -213,8 +215,8 @@ export const ConversionModal = ({
     <Rodal
       visible={showConversionModal}
       onClose={handleCancelClick}
-      width={550}
-      height={380}
+      width={width > 650 ? 550 : 400}
+      height={400}
     >
       <div className={styles.container}>
         <p className={styles.title}>Add New Conversion</p>

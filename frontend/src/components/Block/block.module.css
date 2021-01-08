@@ -104,3 +104,13 @@
 .hide {
   display: none !important;
 }
+
+@media (max-width: 740px) {
+  .bottom {
+    display: block;
+  }
+
+  .gpa {
+    margin-bottom: 1.5em;
+  }
+}
