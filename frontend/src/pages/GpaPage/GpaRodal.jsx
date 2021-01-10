@@ -675,7 +675,6 @@ export const NewAssessment = ({
       const data = { courseId, name, receivedScore, totalScore, weight };
       authAxios.post("/assessment", data).then((res) => {
         const { result, code } = res.data;
-        console.log(res.data);
         if (result) {
           // Parent = update
           setUserUpdate(true);

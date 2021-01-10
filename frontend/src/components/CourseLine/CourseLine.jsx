@@ -4,34 +4,36 @@ import styles from "./courseLine.module.css";
 import { connect } from "react-redux";
 import { toggleCourse } from "../../redux";
 
-const CourseLine = ({ course, conversion, toggleCourse, courseIncluded }) => {
-  const handleToggle = () => {
-    toggleCourse(courseIncluded === 0 ? 1 : 0);
-  };
+const CourseLine = React.memo(
+  ({ course, conversion, toggleCourse, courseIncluded }) => {
+    const handleToggle = () => {
+      toggleCourse(courseIncluded === 0 ? 1 : 0);
+    };
 
-  return (
-    <div className={styles.body}>
-      <input
-        type="checkbox"
-        className={styles.checkbox}
-        checked={courseIncluded === 0 ? false : true}
-        onChange={handleToggle}
-      />
-      <p className={`${styles.data} ${styles.name}`}>{course.name}</p>
-      <p className={styles.data}>{course.units}</p>
-      <p className={styles.data}>{course.grade}</p>
-      <p className={`${styles.data} ${styles.grey}`}>
-        {conversion[course.grade].toFixed(1)}
-      </p>
-      <p className={`${styles.data} ${styles.grey}`}>
-        {(course.units * conversion[course.grade]).toFixed(1)}
-      </p>
-      <Link to={`/course/${course.id}`} className={styles.editButton}>
-        Edit
-      </Link>
-    </div>
-  );
-};
+    return (
+      <div className={styles.body}>
+        <input
+          type="checkbox"
+          className={styles.checkbox}
+          checked={courseIncluded === 0 ? false : true}
+          onChange={handleToggle}
+        />
+        <p className={`${styles.data} ${styles.name}`}>{course.name}</p>
+        <p className={styles.data}>{course.units}</p>
+        <p className={styles.data}>{course.grade}</p>
+        <p className={`${styles.data} ${styles.grey}`}>
+          {conversion[course.grade].toFixed(1)}
+        </p>
+        <p className={`${styles.data} ${styles.grey}`}>
+          {(course.units * conversion[course.grade]).toFixed(1)}
+        </p>
+        <Link to={`/course/${course.id}`} className={styles.editButton}>
+          Edit
+        </Link>
+      </div>
+    );
+  }
+);
 
 const mapStateToProps = (state, ownProps) => {
   const { semesterId } = ownProps;

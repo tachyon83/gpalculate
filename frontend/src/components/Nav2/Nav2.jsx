@@ -29,4 +29,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Nav2);
+export default React.memo(connect(null, mapDispatchToProps)(Nav2));

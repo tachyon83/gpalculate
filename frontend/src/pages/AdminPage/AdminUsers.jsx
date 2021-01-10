@@ -37,7 +37,6 @@ function AdminUsers() {
     authAxios.get(`/admin/user/${searchWord}`).then((res) => {
       const { result, code, data } = res.data;
       if (result) {
-        console.log(data);
         setUsers(data);
       } else {
         if (code === 3) {

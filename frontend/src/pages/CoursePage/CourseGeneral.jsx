@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Button2 } from "../../components/Buttons/Buttons";
 import styles from "./courseGeneral.module.css";
 import { connect } from "react-redux";
+import { updateCourse } from "../../redux";
 import axios from "axios";
 
 const CourseGeneral = ({
@@ -10,6 +11,7 @@ const CourseGeneral = ({
   courseInformation,
   setUserUpdate,
   conversionArr,
+  updateCourse,
 }) => {
   const history = useHistory();
 
@@ -90,13 +92,19 @@ const CourseGeneral = ({
 
       authAxios.put("/course", data).then((res) => {
         const { result, code } = res.data;
-        console.log(res.data);
 
         if (result) {
           // Update parent component
           setUserUpdate(true);
           // Go back to read mode
           setReadMode(true);
+          // Update redux
+          const information = {
+            name: courseName,
+            units: parseInt(courseUnits),
+            grade: courseGrade,
+          };
+          updateCourse(information);
         } else {
           if (code === 3) {
             alert("Internal Server Error");
@@ -219,4 +227,14 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(CourseGeneral);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const { courseInformation, courseId } = ownProps;
+  return {
+    updateCourse: (information) =>
+      dispatch(
+        updateCourse(courseInformation.id, parseInt(courseId), information)
+      ),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CourseGeneral);

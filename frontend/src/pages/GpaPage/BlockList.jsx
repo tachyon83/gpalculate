@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import Block from "../../components/Block/Block";
 import { Loading } from "../../components/Loading/Loading";
@@ -12,7 +12,7 @@ const BlockList = ({ setSemesters, userUpdate, setUserUpdate }) => {
   const [semesterInfo, setSemesterInfo] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchSemesterData = () => {
+  const fetchSemesterData = useCallback(() => {
     const jwtToken = localStorage.getItem("token");
     const authAxios = axios.create({
       headers: {
@@ -39,11 +39,11 @@ const BlockList = ({ setSemesters, userUpdate, setUserUpdate }) => {
       .catch((err) => {
         console.log(err);
       });
-  };
+  }, [history, setSemesters]);
 
   useEffect(() => {
     fetchSemesterData();
-  }, []);
+  }, [fetchSemesterData]);
 
   useEffect(() => {
     if (userUpdate) {
@@ -51,7 +51,7 @@ const BlockList = ({ setSemesters, userUpdate, setUserUpdate }) => {
       fetchSemesterData();
     }
     setUserUpdate(false);
-  }, [userUpdate]);
+  }, [userUpdate, fetchSemesterData]);
 
   if (loading) {
     return <Loading />;

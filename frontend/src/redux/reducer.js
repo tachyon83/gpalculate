@@ -6,6 +6,7 @@ import {
   SET_HELP,
   SHOW_HELP,
   SET_ADMIN,
+  UPDATE_COURSE,
 } from "./types.js";
 
 const initialState = {
@@ -19,24 +20,27 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOGOUT:
+    case LOGOUT: {
       return initialState;
+    }
 
-    case SET_CONVERSION:
+    case SET_CONVERSION: {
       const { conversionArr, conversion } = action.payload;
       return {
         ...state,
         conversionArr,
         conversion,
       };
+    }
 
-    case SET_SEMESTERS:
+    case SET_SEMESTERS: {
       return {
         ...state,
         semesters: action.payload.semesters,
       };
+    }
 
-    case TOGGLE_COURSE:
+    case TOGGLE_COURSE: {
       const { semesterId, courseId, include } = action.payload;
       return {
         ...state,
@@ -62,25 +66,55 @@ const reducer = (state = initialState, action) => {
           return semester;
         }),
       };
+    }
 
-    case SET_HELP:
+    case SET_HELP: {
       const needHelp = action.payload.help === 1 ? true : false;
       return {
         ...state,
         needHelp,
       };
+    }
 
-    case SHOW_HELP:
+    case SHOW_HELP: {
       return {
         ...state,
         showHelp: true,
       };
+    }
 
-    case SET_ADMIN:
+    case SET_ADMIN: {
       return {
         ...state,
         isAdmin: action.payload.isAdmin === 1 ? true : false,
       };
+    }
+
+    case UPDATE_COURSE: {
+      const { semesterId, courseId, information } = action.payload;
+      return {
+        ...state,
+        semesters: state.semesters.map((semester) => {
+          if (semester.id === semesterId) {
+            return {
+              ...semester,
+              courses: semester.courses.map((course) => {
+                if (course.id === courseId) {
+                  return {
+                    ...course,
+                    name: information.name,
+                    units: information.units,
+                    grade: information.grade,
+                  };
+                }
+                return course;
+              }),
+            };
+          }
+          return semester;
+        }),
+      };
+    }
 
     default:
       return state;

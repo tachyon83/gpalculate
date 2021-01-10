@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Fade from "react-reveal/Fade";
 import { ConversionChart } from "../../components/ConversionChart/ConversionChart";
 import styles from "./signUpForm.module.css";
@@ -25,12 +25,12 @@ export const SignUpForm = () => {
 
   const [conversionTypes, setConversionTypes] = useState(null);
 
-  const getConversionInfo = () => {
+  const getConversionInfo = useCallback(() => {
     const conversionInfo = conversionTypes.filter(
       (conversion) => conversion.conversionId === conversionId
     )[0].conversion;
     return conversionInfo;
-  };
+  }, [conversionTypes, conversionId]);
 
   useEffect(() => {
     axios
@@ -52,23 +52,23 @@ export const SignUpForm = () => {
     if (conversionTypes) {
       setConversionInfo(getConversionInfo());
     }
-  }, [conversionTypes, conversionId]);
+  }, [conversionTypes, getConversionInfo]);
 
-  const onEmailChange = (e) => {
+  const onEmailChange = useCallback((e) => {
     setEmail(e.target.value);
-  };
+  }, []);
 
-  const onPasswordChange = (e) => {
+  const onPasswordChange = useCallback((e) => {
     setPassword(e.target.value);
-  };
+  }, []);
 
-  const onNameChange = (e) => {
+  const onNameChange = useCallback((e) => {
     setName(e.target.value);
-  };
+  }, []);
 
-  const onConversionIdChange = (e) => {
+  const onConversionIdChange = useCallback((e) => {
     setConversionId(parseInt(e.target.value));
-  };
+  }, []);
 
   const handleFirstStageSubmit = (e) => {
     e.preventDefault();
@@ -161,7 +161,7 @@ export const SignUpForm = () => {
             <label className={styles.label}>Password:</label>
             <input
               type="password"
-              placeholder="At least 6 characters"
+              placeholder="Password"
               value={password}
               onChange={onPasswordChange}
               className={styles.input}

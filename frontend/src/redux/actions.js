@@ -6,6 +6,7 @@ import {
   SET_HELP,
   SHOW_HELP,
   SET_ADMIN,
+  UPDATE_COURSE,
 } from "./types";
 
 export const logout = () => {
@@ -70,6 +71,17 @@ export const setAdmin = (isAdmin) => {
     type: SET_ADMIN,
     payload: {
       isAdmin,
+    },
+  };
+};
+
+export const updateCourse = (semesterId, courseId, information) => {
+  return {
+    type: UPDATE_COURSE,
+    payload: {
+      semesterId,
+      courseId,
+      information,
     },
   };
 };

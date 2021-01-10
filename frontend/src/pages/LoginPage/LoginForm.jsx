@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import Fade from "react-reveal/Fade";
 import styles from "./loginForm.module.css";
 import axios from "axios";
@@ -20,13 +20,13 @@ const LoginForm = ({ setConversion, setHelp, setAdmin }) => {
 
   const [loginSubmitCode, setLoginSubmitCode] = useState(0);
 
-  const onEmailChange = (e) => {
+  const onEmailChange = useCallback((e) => {
     setEmail(e.target.value);
-  };
+  }, []);
 
-  const onPasswordChange = (e) => {
+  const onPasswordChange = useCallback((e) => {
     setPassword(e.target.value);
-  };
+  }, []);
 
   const handleFormLogin = (e) => {
     e.preventDefault();
@@ -114,7 +114,7 @@ const LoginForm = ({ setConversion, setHelp, setAdmin }) => {
           <label className={styles.label}>Password:</label>
           <input
             type="password"
-            placeholder="At least 6 characters"
+            placeholder="Password"
             value={password}
             onChange={onPasswordChange}
             className={styles.input}
