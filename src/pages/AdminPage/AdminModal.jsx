@@ -61,6 +61,7 @@ export const AnnouncementModal = ({
         if (code === 3) {
           alert("Internal Server Error");
         } else if (code === 4) {
+          localStorage.clear();
           history.push("/login");
         }
       }
@@ -205,6 +206,7 @@ export const ConversionModal = ({
         if (code === 3) {
           alert("Internal Server Error");
         } else if (code === 4) {
+          localStorage.clear();
           history.push("/login");
         }
       }

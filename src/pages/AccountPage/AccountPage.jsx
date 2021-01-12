@@ -31,6 +31,7 @@ export const AccountPage = () => {
         if (code === 3) {
           alert("Internal Server Error");
         } else if (code === 4) {
+          localStorage.clear();
           history.push("/login");
         }
       }
@@ -48,6 +49,7 @@ export const AccountPage = () => {
         if (code === 3) {
           alert("Internal Server Error");
         } else if (code === 4) {
+          localStorage.clear();
           history.push("/login");
         }
       }

@@ -4,7 +4,7 @@ import styles from "./user.module.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-export const User = ({ user, setUserUpdate }) => {
+export const User = ({ user, setUserUpdate, setUserDelete }) => {
   const history = useHistory();
   const { email, name, conversionid } = user;
 
@@ -21,10 +21,12 @@ export const User = ({ user, setUserUpdate }) => {
       const { result, code } = res.data;
       if (result) {
         setUserUpdate(true);
+        setUserDelete(true);
       } else {
         if (code === 3) {
           alert("Internal Server Error");
         } else if (code === 4) {
+          localStorage.clear();
           history.push("/login");
         }
       }

@@ -22,7 +22,9 @@ const CourseLine = React.memo(
         <p className={styles.data}>{course.units}</p>
         <p className={styles.data}>{course.grade}</p>
         <p className={`${styles.data} ${styles.grey}`}>
-          {conversion[course.grade].toFixed(1)}
+          {conversion[course.grade]
+            ? conversion[course.grade].toFixed(1)
+            : "N/A"}
         </p>
         <p className={`${styles.data} ${styles.grey}`}>
           {(course.units * conversion[course.grade]).toFixed(1)}

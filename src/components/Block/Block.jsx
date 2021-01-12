@@ -20,7 +20,13 @@ const Block = React.memo(
       setShown((prevShown) => !prevShown);
     };
 
-    const maximumGpa = conversionArr[0].number;
+    let maximumGpa;
+    for (let conversion of conversionArr) {
+      if (conversion.number) {
+        maximumGpa = conversion.number;
+        break;
+      }
+    }
 
     const calculateSemesterGpa = useCallback(() => {
       let totalUnits = 0;
@@ -61,6 +67,7 @@ const Block = React.memo(
           if (code === 3) {
             alert("Internal Server Error");
           } else if (code === 4) {
+            localStorage.clear();
             history.push("/login");
           }
         }

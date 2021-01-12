@@ -32,6 +32,7 @@ const BlockList = ({ setSemesters, userUpdate, setUserUpdate }) => {
           if (code === 3) {
             alert("Internal Server error");
           } else if (code === 4) {
+            localStorage.clear();
             history.push("/login");
           }
         }

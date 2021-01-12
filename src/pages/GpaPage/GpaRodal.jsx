@@ -61,6 +61,7 @@ export const NewSemester = ({
           if (code === 3) {
             alert("Internal Server Error");
           } else if (code === 4) {
+            localStorage.clear();
             history.push("/login");
           } else if (code === 5) {
             setShowExistsError(true);
@@ -201,6 +202,7 @@ const NewCourse = ({
           if (code === 3) {
             alert("Internal Server Error");
           } else if (code === 4) {
+            localStorage.clear();
             history.push("/login");
           } else if (code === 5) {
             setShowExistsError(true);
@@ -252,14 +254,18 @@ const NewCourse = ({
             <label className={styles.rowLabel}>Grade:</label>
             <div className={styles.rowData}>
               <select value={grade} onChange={handleGradeChange}>
-                {conversionArr.map((conversion) => (
-                  <option
-                    value={conversion.letter}
-                    key={`${conversion.letter}-${conversion.grade}`}
-                  >
-                    {conversion.letter}
-                  </option>
-                ))}
+                {conversionArr.map((conversion) => {
+                  if (conversion.number) {
+                    return (
+                      <option
+                        value={conversion.letter}
+                        key={`${conversion.letter}-${conversion.number}`}
+                      >
+                        {conversion.letter}
+                      </option>
+                    );
+                  }
+                })}
               </select>
 
               <p
@@ -362,6 +368,7 @@ export const EditAssessment = ({
         if (code === 3) {
           alert("Internal Server Error");
         } else if (code === 4) {
+          localStorage.clear();
           history.push("/login");
         }
       }
@@ -454,6 +461,7 @@ export const EditAssessment = ({
           if (code === 3) {
             alert("Internal Server Error");
           } else if (code === 4) {
+            localStorage.clear();
             history.push("/login");
           } else if (code === 5) {
             setShowExistsError(true);
@@ -684,6 +692,7 @@ export const NewAssessment = ({
           if (code === 3) {
             alert("Internal Server Error");
           } else if (code === 4) {
+            localStorage.clear();
             history.push("/login");
           } else if (code === 5) {
             setShowExistsError(true);

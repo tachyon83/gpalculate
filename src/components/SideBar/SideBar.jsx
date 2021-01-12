@@ -7,7 +7,13 @@ import { connect } from "react-redux";
 import { numToSeason } from "../../global";
 
 const Summary = ({ conversionArr, conversion, semesters }) => {
-  const maximumGpa = conversionArr[0].number;
+  let maximumGpa;
+  for (let conversion of conversionArr) {
+    if (conversion.number) {
+      maximumGpa = conversion.number.toFixed(2);
+      break;
+    }
+  }
   let totalGpaUnits = 0;
   let totalGpaGrade = 0;
   let gpaArr = [];

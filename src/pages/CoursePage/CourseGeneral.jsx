@@ -109,6 +109,7 @@ const CourseGeneral = ({
           if (code === 3) {
             alert("Internal Server Error");
           } else if (code === 4) {
+            localStorage.clear();
             history.push("/login");
           } else if (code === 5) {
             setShowExistsError(true);
@@ -197,11 +198,18 @@ const CourseGeneral = ({
             <label className={styles.rowTitle}>Course Grade:</label>
             <div className={styles.rowData}>
               <select onChange={onCourseGradeChange} value={courseGrade}>
-                {conversionArr.map((conversion, i) => (
-                  <option value={conversion.letter} key={i}>
-                    {conversion.letter}
-                  </option>
-                ))}
+                {conversionArr.map((conversion) => {
+                  if (conversion.number) {
+                    return (
+                      <option
+                        value={conversion.letter}
+                        key={`${conversion.letter}-${conversion.number}`}
+                      >
+                        {conversion.letter}
+                      </option>
+                    );
+                  }
+                })}
               </select>
             </div>
           </div>

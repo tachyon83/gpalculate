@@ -38,7 +38,8 @@ const NeedHelp = ({ showHelpModal, setShowHelpModal, showHelp }) => {
           if (code === 3) {
             alert("Internal Server Error");
           } else if (code === 4) {
-            history.push("/gpa");
+            localStorage.clear();
+            history.push("/login");
           }
         }
       });

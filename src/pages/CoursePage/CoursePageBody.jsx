@@ -35,6 +35,7 @@ export const CoursePageBody = () => {
         if (code === 3) {
           alert("Internal Server Error");
         } else if (code === 4) {
+          localStorage.clear();
           history.push("/gpa");
         }
       }
@@ -74,7 +75,8 @@ export const CoursePageBody = () => {
         if (code === 3) {
           alert("Internal Server Error");
         } else if (code === 4) {
-          alert("Not authenticated");
+          localStorage.clear();
+          history.push("/gpa");
         }
       }
     });

@@ -21,6 +21,8 @@ export const AdminPage = () => {
   const [announcementUpdate, setAnnouncementUpdate] = useState(false);
   const [conversionUpdate, setConversionUpdate] = useState(false);
 
+  const [userDelete, setUserDelete] = useState(false);
+
   const jwtToken = localStorage.getItem("token");
   const authAxios = axios.create({
     headers: {
@@ -37,6 +39,7 @@ export const AdminPage = () => {
         if (code === 3) {
           alert("Internal Server Error");
         } else if (code === 4) {
+          localStorage.clear();
           history.push("/login");
         }
       }
@@ -52,6 +55,7 @@ export const AdminPage = () => {
         if (code === 3) {
           alert("Internal Server Error");
         } else if (code === 4) {
+          localStorage.clear();
           history.push("/login");
         }
       }
@@ -67,6 +71,7 @@ export const AdminPage = () => {
         if (code === 3) {
           alert("Internal Server Error");
         } else if (code === 4) {
+          localStorage.clear();
           history.push("/login");
         }
       }
@@ -92,6 +97,13 @@ export const AdminPage = () => {
     }
     setConversionUpdate(false);
   }, [conversionUpdate]);
+
+  useEffect(() => {
+    if (userDelete) {
+      fetchUserNum();
+    }
+    setUserDelete(false);
+  }, [userDelete]);
 
   let conversionDivArr = [];
 
@@ -184,7 +196,7 @@ export const AdminPage = () => {
         {/* Search Users */}
         <div className={styles.block}>
           <p className={styles.subTitle}>Search Users</p>
-          <AdminUsers />
+          <AdminUsers setUserDelete={setUserDelete} />
         </div>
       </div>
 

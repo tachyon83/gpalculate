@@ -5,7 +5,7 @@ import { User } from "./User";
 import { Button3 } from "../../components/Buttons/Buttons";
 import styles from "./user.module.css";
 
-function AdminUsers() {
+function AdminUsers({ setUserDelete }) {
   const history = useHistory();
   const [users, setUsers] = useState(null);
   const [searchWord, setSearchWord] = useState("");
@@ -27,6 +27,7 @@ function AdminUsers() {
         if (code === 3) {
           alert("Internal Server Error");
         } else if (code === 4) {
+          localStorage.clear();
           history.push("/login");
         }
       }
@@ -42,6 +43,7 @@ function AdminUsers() {
         if (code === 3) {
           alert("Internal Server Error");
         } else if (code === 4) {
+          localStorage.clear();
           history.push("/login");
         }
       }
@@ -92,7 +94,12 @@ function AdminUsers() {
       </form>
       {users &&
         users.map((user) => (
-          <User user={user} key={user.id} setUserUpdate={setUserUpdate} />
+          <User
+            user={user}
+            key={user.id}
+            setUserUpdate={setUserUpdate}
+            setUserDelete={setUserDelete}
+          />
         ))}
       {users && users.length === 0 && <p>No users</p>}
     </>

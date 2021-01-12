@@ -99,12 +99,14 @@ const AccountPageBody = React.memo(
             setUserUpdate(true);
             // Change back to read mode
             setReadMode(true);
+            setShowExistingEmailError(false);
           } else {
             if (code === 1) {
               setShowExistingEmailError(true);
             } else if (code === 3) {
               alert("Internal Server Error");
             } else if (code === 4) {
+              localStorage.clear();
               history.push("/login");
             }
           }
