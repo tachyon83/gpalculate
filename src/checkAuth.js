@@ -14,6 +14,7 @@ export const checkAuth = () => {
     // { exp: 1608797099 }
     const { exp } = decode(token);
     if (exp < new Date().getTime() / 1000) {
+      localStorage.clear();
       return false;
     }
   } catch (e) {

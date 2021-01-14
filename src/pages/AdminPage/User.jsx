@@ -3,8 +3,10 @@ import { Button2 } from "../../components/Buttons/Buttons";
 import styles from "./user.module.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { setAdmin } from "../../redux";
 
-export const User = ({ user, setUserUpdate, setUserDelete }) => {
+const User = ({ user, setUserUpdate, setUserDelete, setAdmin }) => {
   const history = useHistory();
   const { email, name, conversionid } = user;
 
@@ -27,6 +29,7 @@ export const User = ({ user, setUserUpdate, setUserDelete }) => {
           alert("Internal Server Error");
         } else if (code === 4) {
           localStorage.clear();
+          setAdmin(0);
           history.push("/login");
         }
       }
@@ -42,3 +45,11 @@ export const User = ({ user, setUserUpdate, setUserDelete }) => {
     </div>
   );
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setAdmin: (isAdmin) => dispatch(setAdmin(isAdmin)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(User);

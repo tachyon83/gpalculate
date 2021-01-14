@@ -3,13 +3,16 @@ import Nav from "../../components/Nav/Nav";
 import { Footer } from "../../components/Footer/Footer";
 import { Button2 } from "../../components/Buttons/Buttons";
 import { ConversionChart } from "../../components/ConversionChart/ConversionChart";
-import { AnnouncementModal, ConversionModal } from "./AdminModal";
+import AnnouncementModal from "./AnnouncementModal";
+import ConversionModal from "./ConversionModal";
 import AdminUsers from "./AdminUsers";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import styles from "./adminPage.module.css";
+import { connect } from "react-redux";
+import { setAdmin } from "../../redux";
 
-export const AdminPage = () => {
+const AdminPage = (setAdmin) => {
   const history = useHistory();
   const [numOfUsers, setNumOfUsers] = useState(0);
   const [announcements, setAnnouncements] = useState([]);
@@ -40,6 +43,7 @@ export const AdminPage = () => {
           alert("Internal Server Error");
         } else if (code === 4) {
           localStorage.clear();
+          setAdmin(0);
           history.push("/login");
         }
       }
@@ -56,6 +60,7 @@ export const AdminPage = () => {
           alert("Internal Server Error");
         } else if (code === 4) {
           localStorage.clear();
+          setAdmin(0);
           history.push("/login");
         }
       }
@@ -72,6 +77,7 @@ export const AdminPage = () => {
           alert("Internal Server Error");
         } else if (code === 4) {
           localStorage.clear();
+          setAdmin(0);
           history.push("/login");
         }
       }
@@ -216,3 +222,11 @@ export const AdminPage = () => {
     </>
   );
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setAdmin: (isAdmin) => dispatch(setAdmin(isAdmin)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(AdminPage);
