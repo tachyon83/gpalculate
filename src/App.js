@@ -13,7 +13,7 @@ import { AccountPage } from "./pages/AccountPage/AccountPage";
 import { AboutPage } from "./pages/AboutPage/AboutPage";
 import { AnnouncementPage } from "./pages/AnnouncementPage/AnnouncementPage";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
-import { AdminPage } from "./pages/AdminPage/AdminPage";
+import AdminPage from "./pages/AdminPage/AdminPage";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";

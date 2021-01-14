@@ -3,18 +3,20 @@ import { Link, useHistory } from "react-router-dom";
 import backgroundSvg from "../../assets/landing-top.svg";
 import logo from "../../assets/logo-v2.png";
 import styles from "./nav.module.css";
-import { checkAuth } from "../../checkAuth";
+import { checkAuth, checkAdmin } from "../../checkAuth";
 import { connect } from "react-redux";
-import { logout } from "../../redux";
+import { logout, setAdmin } from "../../redux";
 
-const Nav = ({ logout, isAdmin }) => {
+const Nav = ({ logout, setAdmin }) => {
   const [loggedIn, setLoggedIn] = useState(checkAuth());
+  const isAdmin = checkAdmin();
   let history = useHistory();
 
   const handleLogout = () => {
     localStorage.clear();
     logout();
     setLoggedIn(false);
+    setAdmin(0);
     history.push("/");
   };
 
@@ -65,16 +67,11 @@ const Nav = ({ logout, isAdmin }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isAdmin: state.isAdmin,
-  };
-};
-
 const mapDispatchToProps = (dispatch) => {
   return {
     logout: () => dispatch(logout()),
+    setAdmin: (isAdmin) => dispatch(setAdmin(isAdmin)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Nav);
+export default connect(null, mapDispatchToProps)(Nav);
