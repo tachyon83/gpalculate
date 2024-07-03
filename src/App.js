@@ -2,7 +2,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect,
+  Navigate,
 } from "react-router-dom";
 import { LandingPage } from "./pages/LandingPage/LandingPage";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
@@ -31,11 +31,11 @@ function PrivateRoute({ children, ...rest }) {
       {...rest}
       render={({ location }) => {
         return checkAdmin() ? (
-          <Redirect to={{ pathname: "/admin" }} />
+          <Navigate to={{ pathname: "/admin" }} />
         ) : checkAuth() ? (
           children
         ) : (
-          <Redirect to={{ pathname: "/login", state: { from: location } }} />
+          <Navigate to={{ pathname: "/login", state: { from: location } }} />
         );
       }}
     />
@@ -47,7 +47,7 @@ function NonuserRoute({ children, ...rest }) {
     <Route
       {...rest}
       render={() => {
-        return checkAuth() ? <Redirect to={{ pathname: "/gpa" }} /> : children;
+        return checkAuth() ? <Navigate to={{ pathname: "/gpa" }} /> : children;
       }}
     />
   );
@@ -61,9 +61,9 @@ function AdminRoute({ children, ...rest }) {
         return checkAdmin() ? (
           children
         ) : checkAuth() ? (
-          <Redirect to={{ pathname: "/gpa" }} />
+          <Navigate to={{ pathname: "/gpa" }} />
         ) : (
-          <Redirect to={{ pathname: "/login", state: { from: location } }} />
+          <Navigate to={{ pathname: "/login", state: { from: location } }} />
         );
       }}
     />

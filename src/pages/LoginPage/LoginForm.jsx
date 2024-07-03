@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import Fade from "react-reveal/Fade";
 import styles from "./loginForm.module.css";
 import axios from "axios";
-import { Redirect, useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { emailPass, passwordPass } from "../../global";
 import { connect } from "react-redux";
 import { setConversion, setHelp, setAdmin } from "../../redux";
@@ -81,9 +81,9 @@ const LoginForm = ({ setConversion, setHelp, setAdmin }) => {
 
   if (redirectToReferrer) {
     if (redirectAsAdmin) {
-      return <Redirect to={state?.from || "/admin"} />;
+      return <Navigate to={state?.from || "/admin"} />;
     } else {
-      return <Redirect to={state?.from || "/gpa"} />;
+      return <Navigate to={state?.from || "/gpa"} />;
     }
   }
 
