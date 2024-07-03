@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import Fade from "react-reveal/Fade";
+import Fade from "react-awesome-reveal";
 import styles from "./loginForm.module.css";
 import axios from "axios";
 import { Navigate, useLocation } from "react-router-dom";

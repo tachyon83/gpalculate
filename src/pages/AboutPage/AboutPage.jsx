@@ -5,7 +5,7 @@ import firstImage from "../../assets/about1.png";
 import secondImage from "../../assets/about2.png";
 import thirdImage from "../../assets/about3.png";
 import fourthImage from "../../assets/about4.png";
-import Fade from "react-reveal/Fade";
+import Fade from "react-awesome-reveal";
 import styles from "./aboutPage.module.css";
 
 const Description = ({ num, text }) => {

@@ -4,7 +4,7 @@ import Nav from "../../components/Nav/Nav";
 import { Button1 } from "../../components/Buttons/Buttons";
 import { Description } from "./Description";
 import { Footer } from "../../components/Footer/Footer";
-import Fade from "react-reveal/Fade";
+import Fade from "react-awesome-reveal";
 import styles from "./landingPage.module.css";
 import previewImg from "../../assets/landing-preview.png";
 

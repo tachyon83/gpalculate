@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import Fade from "react-reveal/Fade";
+import Fade from "react-awesome-reveal";
 import { ConversionChart } from "../../components/ConversionChart/ConversionChart";
 import styles from "./signUpForm.module.css";
 import axios from "axios";
