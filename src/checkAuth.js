@@ -1,4 +1,4 @@
-import decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import store from "./redux/store";
 
 export const checkAuth = () => {
@@ -12,7 +12,7 @@ export const checkAuth = () => {
   try {
     // Check if expired
     // { exp: 1608797099 }
-    const { exp } = decode(token);
+    const { exp } = jwtDecode(token);
     if (exp < new Date().getTime() / 1000) {
       localStorage.clear();
       return false;
