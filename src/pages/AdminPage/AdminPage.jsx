@@ -7,13 +7,13 @@ import AnnouncementModal from "./AnnouncementModal";
 import ConversionModal from "./ConversionModal";
 import AdminUsers from "./AdminUsers";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./adminPage.module.css";
 import { connect } from "react-redux";
 import { setAdmin } from "../../redux";
 
 const AdminPage = (setAdmin) => {
-  const history = useHistory();
+  const history = useNavigate();
   const [numOfUsers, setNumOfUsers] = useState(0);
   const [announcements, setAnnouncements] = useState([]);
   const [conversion, setConversion] = useState([]);

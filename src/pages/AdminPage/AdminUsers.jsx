@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import User from "./User";
 import { Button3 } from "../../components/Buttons/Buttons";
 import styles from "./user.module.css";
@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { setAdmin } from "../../redux";
 
 const AdminUsers = ({ setUserDelete, setAdmin }) => {
-  const history = useHistory();
+  const history = useNavigate();
   const [users, setUsers] = useState(null);
   const [searchWord, setSearchWord] = useState("");
   const [userUpdate, setUserUpdate] = useState(false);

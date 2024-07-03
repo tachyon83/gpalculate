@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./accountPageBody.module.css";
 import { Button2 } from "../../components/Buttons/Buttons";
 import { ConversionChart } from "../../components/ConversionChart/ConversionChart";
@@ -10,7 +10,7 @@ import { updateUserInfo } from "../../redux";
 
 const AccountPageBody = React.memo(
   ({ userData, conversionTypes, setUserUpdate, updateUserInfo }) => {
-    const history = useHistory();
+    const history = useNavigate();
     const jwtToken = localStorage.getItem("token");
     const authAxios = axios.create({
       headers: {

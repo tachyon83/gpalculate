@@ -4,7 +4,7 @@ import Rodal from "rodal";
 import axios from "axios";
 import { connect } from "react-redux";
 import styles from "./gpaRodal.module.css";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 export const NewSemester = ({
@@ -12,7 +12,7 @@ export const NewSemester = ({
   showNewSemesterRodal,
   setShowNewSemesterRodal,
 }) => {
-  const history = useHistory();
+  const history = useNavigate();
 
   const [year, setYear] = useState(2020);
   const [season, setSeason] = useState(1);
@@ -128,7 +128,7 @@ const NewCourse = ({
   semesterId,
   conversionArr,
 }) => {
-  const history = useHistory();
+  const history = useNavigate();
 
   const [name, setName] = useState("");
   const [units, setUnits] = useState("");
@@ -305,7 +305,7 @@ export const EditAssessment = ({
   setShowAssessmentRodal,
   setUserUpdate,
 }) => {
-  const history = useHistory();
+  const history = useNavigate();
 
   // Original Values
   const {
@@ -580,7 +580,7 @@ export const NewAssessment = ({
   setShowNewAssessmentRodal,
   setUserUpdate,
 }) => {
-  const history = useHistory();
+  const history = useNavigate();
 
   const { width } = useWindowDimensions();
 

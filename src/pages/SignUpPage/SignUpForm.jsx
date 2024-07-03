@@ -4,10 +4,10 @@ import { ConversionChart } from "../../components/ConversionChart/ConversionChar
 import styles from "./signUpForm.module.css";
 import axios from "axios";
 import { emailPass, passwordPass } from "../../global";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const SignUpForm = () => {
-  const history = useHistory();
+  const history = useNavigate();
 
   const [moveSecondStage, setMoveSecondStage] = useState(false);
 

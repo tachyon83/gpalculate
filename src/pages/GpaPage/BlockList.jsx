@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Block from "../../components/Block/Block";
 import { Loading } from "../../components/Loading/Loading";
 import axios from "axios";
@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { setSemesters } from "../../redux";
 
 const BlockList = ({ setSemesters, userUpdate, setUserUpdate }) => {
-  const history = useHistory();
+  const history = useNavigate();
 
   const [semesterInfo, setSemesterInfo] = useState(null);
   const [loading, setLoading] = useState(true);

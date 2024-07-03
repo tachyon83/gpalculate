@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import backgroundSvg from "../../assets/landing-top.svg";
 import logo from "../../assets/logo-v2.png";
 import styles from "./nav.module.css";
@@ -10,7 +10,7 @@ import { logout, setAdmin } from "../../redux";
 const Nav = ({ logout, setAdmin }) => {
   const [loggedIn, setLoggedIn] = useState(checkAuth());
   const isAdmin = checkAdmin();
-  let history = useHistory();
+  let history = useNavigate();
 
   const handleLogout = () => {
     localStorage.clear();

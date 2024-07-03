@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CourseLine from "../CourseLine/CourseLine";
 import { Button2 } from "../Buttons/Buttons";
 import styles from "./block.module.css";
@@ -10,7 +10,7 @@ import axios from "axios";
 
 const Block = React.memo(
   ({ conversionArr, semester, conversion, coursesRedux, setUserUpdate }) => {
-    const history = useHistory();
+    const history = useNavigate();
 
     const [shown, setShown] = useState(true);
 

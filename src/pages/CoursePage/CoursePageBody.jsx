@@ -4,13 +4,13 @@ import { Button3 } from "../../components/Buttons/Buttons";
 import CourseGeneral from "./CourseGeneral";
 import { CourseDetails } from "./CourseDetails";
 import { Loading } from "../../components/Loading/Loading";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { numToSeason } from "../../global";
 import styles from "./coursePageBody.module.css";
 import axios from "axios";
 
 export const CoursePageBody = () => {
-  const history = useHistory();
+  const history = useNavigate();
   const params = useParams();
   const courseId = params.id;
 

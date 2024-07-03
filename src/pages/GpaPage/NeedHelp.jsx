@@ -3,7 +3,7 @@ import Rodal from "rodal";
 import { connect } from "react-redux";
 import { showHelp } from "../../redux";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./needHelp.module.css";
 import newSemImage from "../../assets/newSemester.gif";
 import newCourseImage from "../../assets/newCourse.gif";
@@ -13,7 +13,7 @@ import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 const NeedHelp = ({ showHelpModal, setShowHelpModal, showHelp }) => {
   const [dontShow, setDontShow] = useState(false);
-  const history = useHistory();
+  const history = useNavigate();
 
   const { width } = useWindowDimensions();
 

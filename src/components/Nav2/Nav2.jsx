@@ -1,11 +1,11 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./nav2.module.css";
 import { connect } from "react-redux";
 import { logout } from "../../redux";
 
 const Nav2 = ({ logout }) => {
-  let history = useHistory();
+  let history = useNavigate();
 
   const handleLogout = () => {
     localStorage.clear();

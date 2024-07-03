@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SideBar from "../../components/SideBar/SideBar";
 import Nav2 from "../../components/Nav2/Nav2";
 import AccountPageBody from "./AccountPageBody";
@@ -8,7 +8,7 @@ import styles from "./accountPage.module.css";
 import { Loading } from "../../components/Loading/Loading";
 
 export const AccountPage = () => {
-  const history = useHistory();
+  const history = useNavigate();
 
   const [userData, setUserData] = useState(null);
   const [conversionTypes, setConversionTypes] = useState(null);

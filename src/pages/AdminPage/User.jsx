@@ -2,12 +2,12 @@ import React from "react";
 import { Button2 } from "../../components/Buttons/Buttons";
 import styles from "./user.module.css";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { setAdmin } from "../../redux";
 
 const User = ({ user, setUserUpdate, setUserDelete, setAdmin }) => {
-  const history = useHistory();
+  const history = useNavigate();
   const { email, name, conversionid } = user;
 
   const deleteUser = () => {

@@ -7,11 +7,11 @@ import { NewSemester } from "./GpaRodal";
 import NeedHelp from "./NeedHelp";
 import axios from "axios";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "rodal/lib/rodal.css";
 
 const GpaPageBody = ({ semesters, needHelp, showHelp }) => {
-  const history = useHistory();
+  const history = useNavigate();
   const [userUpdate, setUserUpdate] = useState(false);
   const [showNewSemesterRodal, setShowNewSemesterRodal] = useState(false);
   const [showSaveSuccess, setShowSaveSuccess] = useState(false);
