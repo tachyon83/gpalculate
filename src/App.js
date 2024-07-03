@@ -1,7 +1,7 @@
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
+  Routes,
   Navigate,
 } from "react-router-dom";
 import { LandingPage } from "./pages/LandingPage/LandingPage";
@@ -25,48 +25,27 @@ import axios from "axios";
 const host = require("./host");
 axios.defaults.baseURL = host.server;
 
-function PrivateRoute({ children, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={({ location }) => {
-        return checkAdmin() ? (
-          <Navigate to={{ pathname: "/admin" }} />
-        ) : checkAuth() ? (
-          children
-        ) : (
-          <Navigate to={{ pathname: "/login", state: { from: location } }} />
-        );
-      }}
-    />
+function PrivateRoute({ children }) {
+  return checkAdmin() ? (
+    <Navigate to="/admin" />
+  ) : checkAuth() ? (
+    children
+  ) : (
+    <Navigate to="/login" />
   );
 }
 
-function NonuserRoute({ children, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={() => {
-        return checkAuth() ? <Navigate to={{ pathname: "/gpa" }} /> : children;
-      }}
-    />
-  );
+function NonuserRoute({ children }) {
+  return checkAuth() ? <Navigate to="/gpa" /> : children;
 }
 
-function AdminRoute({ children, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={({ location }) => {
-        return checkAdmin() ? (
-          children
-        ) : checkAuth() ? (
-          <Navigate to={{ pathname: "/gpa" }} />
-        ) : (
-          <Navigate to={{ pathname: "/login", state: { from: location } }} />
-        );
-      }}
-    />
+function AdminRoute({ children }) {
+  return checkAdmin() ? (
+    children
+  ) : checkAuth() ? (
+    <Navigate to="/gpa" />
+  ) : (
+    <Navigate to="/login" />
   );
 }
 
@@ -77,31 +56,60 @@ function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <Router>
-          <Switch>
-            <Route exact path="/" component={LandingPage} />
-            <NonuserRoute path="/login">
-              <LoginPage />
-            </NonuserRoute>
-            <NonuserRoute path="/signUp">
-              <SignUpPage />
-            </NonuserRoute>
-            <PrivateRoute path="/gpa">
-              <GpaPage />
-            </PrivateRoute>
-            <PrivateRoute path="/course/:id">
-              <CoursePage />
-            </PrivateRoute>
-            <PrivateRoute path="/account">
-              <AccountPage />
-            </PrivateRoute>
-            <Route path="/about" component={AboutPage} />
-            <Route path="/announcements" component={AnnouncementPage} />
-            {/* <Route path="/admin" component={AdminPage} /> */}
-            <AdminRoute path="/admin">
-              <AdminPage />
-            </AdminRoute>
-            <Route component={NotFoundPage} />
-          </Switch>
+          <Routes>
+            <Route exact path="/" element={<LandingPage />} />
+            <Route
+              path="/login"
+              element={
+                <NonuserRoute>
+                  <LoginPage />
+                </NonuserRoute>
+              }
+            />
+            <Route
+              path="/signUp"
+              element={
+                <NonuserRoute>
+                  <SignUpPage />
+                </NonuserRoute>
+              }
+            />
+            <Route
+              path="/gpa"
+              element={
+                <PrivateRoute>
+                  <GpaPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/course/:id"
+              element={
+                <PrivateRoute>
+                  <CoursePage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/account"
+              element={
+                <PrivateRoute>
+                  <AccountPage />
+                </PrivateRoute>
+              }
+            />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/announcements" element={<AnnouncementPage />} />
+            <Route
+              path="/admin"
+              element={
+                <AdminRoute>
+                  <AdminPage />
+                </AdminRoute>
+              }
+            />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
         </Router>
       </PersistGate>
     </Provider>
